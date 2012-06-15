@@ -1,0 +1,15 @@
+this file is abut the functionality
+>>during installation we ask the user for a username and a pass
+>>that ll be the owner_super username and pass
+>>see we need an acccount facility so here the accounts can be created only by the admin_super;;
+>>and each time he creates an account he sets one username and pass
+>>and so account can be created only by the owner_super 
+>>each time he creates an account he has to assign 3 roles
+owner
+editor 
+trivial account
+>>why we need trivial account is that once the owner_super creates an account for XYZ  makes him an owner or an editor 
+>>and later some time he might want to remove editor or owner privilleges of XYZ 
+>>now the the owner_super may not want to remove the account;ie he may not want to delete the account;
+>>so there has to be an account which is neither an owner nor editor
+

@@ -1,0 +1,18 @@
+#!/bin/bash
+#in wiki_model
+fetch_wiki_list()
+fetch_wiki($id,$wikiid=0);#if 0 fetches latest
+edit_wiki($id,,$editdescription,$wikicontent,$wikimessage)#make this edit description,wiki,title
+wiki_create($permittedtoeditors,$desciption)#$permittedtoeditors is an array with userids
+wiki_delete($id)
+#wikiacc_model
+create,edit,delete account
+login
+logout
+drop_privillege($key);
+privellge($key,$wiki_ids)
+#$wiki_ids is a array of wiki ids
+#$key=1=>make editor for the array of wiki_id
+#$key=2=>remove as editor for the array of wiki_id
+#$key=3=>make owner
+#$key=4=>drop from owner
