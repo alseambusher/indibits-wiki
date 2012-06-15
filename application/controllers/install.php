@@ -36,6 +36,35 @@ class Install extends CI_Controller {
 					$_POST['admin_username'],
 					$_POST['admin_password']
 				);
+				//$this->db->query(file_get_contents('export.sql'));
+				$this->db->query("
+	CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT primary key,
+  `first_name` varchar(30) DEFAULT NULL,
+  `last_name` varchar(30) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `timezone` varchar(50) DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `account_type` varchar(30) DEFAULT NULL,
+  `signup_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `notifications` text
+);");
+				$this->db->query("
+	CREATE TABLE IF NOT EXISTS `wikis` (
+  `ownerid` int(11) DEFAULT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `wikiid` int(11) NOT NULL AUTO_INCREMENT primary key,
+  `editors` text
+);");
+				$this->db->query("
+	CREATE TABLE IF NOT EXISTS `wiki_data` (
+  `wikiid` int(11) DEFAULT NULL,
+  `versionid` int(11) DEFAULT NULL,
+  `wiki_title` text,
+  `wiki_description` text,
+  `editorid` int(11) DEFAULT NULL
+);");
 				redirect('install/success');
 			}
 		}
@@ -66,7 +95,7 @@ class Install extends CI_Controller {
 					$db_name="'.$db_name.'";
 					$admin_username="'.$admin_username.'";
 					$admin_password="'.$admin_password.'";
-					$default_controller="welcome.php";?>';	
+					$default_controller="welcome";?>';	
 		$fp = fopen('config.php', 'w');
 		fwrite($fp, $newconfig);
 		fclose($fp);	

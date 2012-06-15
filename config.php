@@ -1,10 +1,10 @@
 <?php  if ( ! defined("BASEPATH")) exit("No direct script access allowed");
-					$wikiapp_name="default wiki application";
-					$wikiapp_description="default description";
+					$wikiapp_name="default";
+					$wikiapp_description="default";
 					$db_host="localhost";
 					$db_username="root";
 					$db_password="alse";
 					$db_name="indibits_wiki";
-					$admin_username="alseambusher";
-					$admin_password="alse";
-					$default_controller="install";?>
+					$admin_username="default";
+					$admin_password="default";
+					$default_controller="welcome";?>
