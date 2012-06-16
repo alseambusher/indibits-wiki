@@ -34,7 +34,9 @@ class Install extends CI_Controller {
 					$_POST['db_password'],
 					$_POST['db_name'],
 					$_POST['admin_username'],
-					$_POST['admin_password']
+					$_POST['admin_password'],
+					$_POST['copyright'],
+					$_POST['terms']
 				);
 				//$this->db->query(file_get_contents('export.sql'));
 				$this->db->query("
@@ -85,7 +87,7 @@ class Install extends CI_Controller {
 				</div>
 			</div>';
 	}
-	function updateConfig($wikiapp_name,$wikiapp_description,$db_host,$db_username,$db_password,$db_name,$admin_username,$admin_password){
+	function updateConfig($wikiapp_name,$wikiapp_description,$db_host,$db_username,$db_password,$db_name,$admin_username,$admin_password,$copyright="",$terms=""){
 		$newconfig='<?php  if ( ! defined("BASEPATH")) exit("No direct script access allowed");
 					$wikiapp_name="'.$wikiapp_name.'";
 					$wikiapp_description="'.$wikiapp_description.'";
@@ -95,6 +97,8 @@ class Install extends CI_Controller {
 					$db_name="'.$db_name.'";
 					$admin_username="'.$admin_username.'";
 					$admin_password="'.$admin_password.'";
+					$copyright="'.$copyright.'";
+					$terms="'.$terms.'";
 					$default_controller="welcome";?>';	
 		$fp = fopen('config.php', 'w');
 		fwrite($fp, $newconfig);

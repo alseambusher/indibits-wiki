@@ -8,4 +8,5 @@ echo '<link href="'.$bootstrap.'css/bootstrap-responsive.css" rel="stylesheet">'
 //echo '<link href="'.$bootstrap.'css/bootstrap-responsive.min.css" rel="stylesheet">';
 echo "<script type='text/javascript' src='".$bootstrap."js/jquery.js'></script>";
 echo "<script type='text/javascript' src='".$bootstrap."js/bootstrap.js'></script>";
+echo "<script type='text/javascript' src='".$bootstrap."js/bootstrap-alert.js'></script>";
 ?>

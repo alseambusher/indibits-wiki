@@ -96,6 +96,14 @@
 			<td>Confirm Password</td>
 			<td><input type="password" class="span3" name="admin_password_confirm"style="font-size:12pt;height:30px;"placeholder="Confirm Password"></td>
 		</tr>
+		<tr>
+		<td>Copyright of the wiki application</td>
+		<td><textarea rows="5" name="copyright"style="width:50%;"></textarea></td>
+		</tr>
+		<tr>
+		<td>Terms and conditions for using this application</td>
+		<td><textarea rows="5" name="terms"style="width:50%;"></textarea></td>
+		</tr>
 	</table>
 	<button type="button"class="btn btn-primary btn-large" value="next" onclick="$('#step2').fadeOut(500,function(){$('#step1').fadeIn(500);});"><< Back</button>
 	<button type="submit"class="btn btn-success btn-large" name="submit" value="submit">Done !!</button>
