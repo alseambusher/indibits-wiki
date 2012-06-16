@@ -36,6 +36,8 @@
                 <li><a href="#">About Indibits</a></li>
                 <li><a href="#">About Indibits-wiki</a></li>
                 <li class="divider"></li>
+                <li><a href="#">Settings</a></li>
+                <li class="divider"></li>
                 <li><a href="#">Help</a></li>
               </ul>
             </li>
