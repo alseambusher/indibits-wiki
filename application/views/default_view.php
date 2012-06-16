@@ -25,10 +25,12 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="#"><? echo $wikiapp_name;?></a>
-          
-          
           <ul class="nav pull-right">
-            <li><a href="#">Login</a></li>
+          <!-- TODO this will be logout if already logged in -->
+          <form class="navbar-search pull-left">
+			<input type="text" class="search-query" placeholder="Username" style="font-size:11pt;height:25px;">
+			<input type="password" class="search-query" placeholder="Password" style="font-size:11pt;height:25px;">
+		  </form>
             <li class="divider-vertical"></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help<b class="caret"></b></a>
@@ -70,6 +72,12 @@
     </div>	
     <!-- Lower status bar ends -->
     <div class="container">
+    <div id="login_window" style="height:0px;width:0px;overflow:hidden;">
+		    <form action="" id="loginForm" method="post"><br>
+    		<input type="text" class="span3" style="font-size:12pt;height:30px;"placeholder="Username">
+    		<input type="password" class="span3" style="font-size:12pt;height:30px;"placeholder="password"><br>
+    </form>
+    </div>
     
     
     <header class="jumbotron subhead" id="overview">
@@ -101,7 +109,7 @@
     </ul>
   </div>
 </header>
-<!-- container class not closed -->
+<!-- container class not closed!!! -->
     
     
     
