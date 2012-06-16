@@ -6,6 +6,7 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->model("wiki_model");
 		$this->load->view("includeBootstrap");
+		$this->load->view("default_view");
 		$this->load->view("home_view");
 	}
 }
