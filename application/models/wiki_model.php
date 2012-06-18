@@ -14,7 +14,7 @@ class Wiki_model extends CI_Model{
 		parent::__construct();
 	}
 	function fetch_wiki_list(){
-		return $this->db->query("select * from wikis")->result_array();
+		return $this->db->query("select * from wikis inner join wiki_data on wikis.wikiid=wiki_data.wikiid group by wikis.wikiid")->result_array();
 	}
 	function fetch_wiki($wikiid,$versionid=0){
 		if($versionid==0){

@@ -13,7 +13,7 @@
       }
     </style>
 </head>
-<body onload="$('#step2').fadeOut(0);">
+<body onload="$('#step2').fadeOut(0);$('#step3').fadeOut(0);">
 	<!-- navigation bar begins -->
 	<div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
@@ -106,8 +106,38 @@
 		</tr>
 	</table>
 	<button type="button"class="btn btn-primary btn-large" value="next" onclick="$('#step2').fadeOut(500,function(){$('#step1').fadeIn(500);});"><< Back</button>
+	<button type="button"class="btn btn-primary btn-large" value="next" onclick="$('#step2').fadeOut(500,function(){$('#step3').fadeIn(500);});">Next >></button>
+	</div>
+	
+	<div class="container" id="step3">
+    <h1>Step 3</h1>
+    <h3>This will create the first owner account in this wiki application</h3><br>
+	<table class="table table-striped">
+		<tr>
+			<td><input type="text" class="span2" name="first_name"style="font-size:12pt;height:30px;width:400px;"placeholder="First Name"></td>
+			<td><input type="text" class="span2" name="last_name"style="font-size:12pt;height:30px;width:400px;"placeholder="Last Name"></td>
+		</tr>
+		<tr>
+			<td>Email</td>
+			<td><input type="text" class="span2" name="email"style="font-size:12pt;height:30px;width:400px;"placeholder="Eg: abc@de.com"></td>
+		</tr>
+		<tr>
+			<td>Time Zone</td>
+			<td><input type="text" class="span2" name="time_zone"style="font-size:12pt;height:30px;width:400px;"placeholder="india"></td>
+		</tr>
+		<tr>
+			<td>Username</td>
+			<td><input type="text" class="span2" name="username"style="font-size:12pt;height:30px;width:400px;"></td>
+		</tr>
+		<tr>
+			<td><input type="password" class="span2" name="password"style="font-size:12pt;height:30px;width:400px;"placeholder="Password"></td>
+			<td><input type="password" class="span2" name="confirm_password"style="font-size:12pt;height:30px;width:400px;"placeholder="Confirm Password"></td>
+		</tr>
+	</table>
+	<button type="button"class="btn btn-primary btn-large" value="next" onclick="$('#step3').fadeOut(500,function(){$('#step2').fadeIn(500);});"><< Back</button>
 	<button type="submit"class="btn btn-success btn-large" name="submit" value="submit">Done !!</button>
 	</div>
+	
 	</form>
 </body>
 </html>
