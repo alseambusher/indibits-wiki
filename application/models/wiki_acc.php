@@ -1,6 +1,7 @@
 <?php
 /*
  * methods in this model:
+ * new_account(
  * login
  * logout
  * handle_account
@@ -8,26 +9,25 @@
  */
 class Wiki_acc extends CI_Model
 {
-	function __construct(){
+	function __construct(){//this function is a constructor of this class
 		parent::__construct();
-	}//now i edited your code so i dont know what this is the function i just commented after
+	}
+	function new_account($data){
+		$this->db->insert("users",$data);
+	}
 	function login($username,$pass)
 	{
         $this-> db -> select('id, username, password');
         $this-> db -> from('users');
         $this-> db -> where('username = ' . "'" . $username . "'");
-        $this-> db -> where('password = ' . "'" . MD5($password) . "'");//i am assuming md5 if u want to salt it or any other thing lwt mw know
+        $this-> db -> where('password = ' . "'" . md5($pass) . "'");//i am assuming md5 if u want to salt it or any other thing lwt mw know
         $this-> db -> limit(1);
 
         $query = $this -> db -> get();
         if($query -> num_rows() == 1)
-	        {
         	    return $query->result();
-                }
          else
-     	        {
                      return false;
-            	}	
 	}
 
 //note that we need another function 
@@ -81,6 +81,36 @@ class Wiki_acc extends CI_Model
             	}
         }
 		
+	}
+	function make_tables(){
+		$this->db->query("
+	CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT primary key,
+  `first_name` varchar(30) DEFAULT NULL,
+  `last_name` varchar(30) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `timezone` varchar(50) DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `account_type` varchar(30) DEFAULT NULL,
+  `signup_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `notifications` text
+);");
+				$this->db->query("
+	CREATE TABLE IF NOT EXISTS `wikis` (
+  `ownerid` int(11) DEFAULT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `wikiid` int(11) NOT NULL AUTO_INCREMENT primary key,
+  `editors` text
+);");
+				$this->db->query("
+	CREATE TABLE IF NOT EXISTS `wiki_data` (
+  `wikiid` int(11) DEFAULT NULL,
+  `versionid` int(11) DEFAULT NULL,
+  `wiki_title` text,
+  `wiki_description` text,
+  `editorid` int(11) DEFAULT NULL
+);");
 	}
 }		
 ?>

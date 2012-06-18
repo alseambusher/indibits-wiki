@@ -27,9 +27,10 @@
           <a class="brand" href="#"><? echo $wikiapp_name;?></a>
           <ul class="nav pull-right">
           <!-- TODO this will be logout if already logged in -->
-          <form class="navbar-search pull-left">
-			<input type="text" class="search-query" placeholder="Username" style="font-size:11pt;height:25px;">
-			<input type="password" class="search-query" placeholder="Password" style="font-size:11pt;height:25px;">
+          <form class="navbar-search pull-left" method="post" action="<? echo $this->config->base_url().index_page()."/welcome/login";?>">
+			<input type="text" name="username"class="search-query" placeholder="Username" style="font-size:11pt;height:25px;">
+			<input type="password" name="password"class="search-query" placeholder="Password" style="font-size:11pt;height:25px;">
+			<button type="submit" style="visibility:hidden;">Login</button>
 		  </form>
             <li class="divider-vertical"></li>
             <li class="dropdown">
@@ -71,15 +72,7 @@
       </div>
     </div>	
     <!-- Lower status bar ends -->
-    <div class="container">
-    <div id="login_window" style="height:0px;width:0px;overflow:hidden;">
-		    <form action="" id="loginForm" method="post"><br>
-    		<input type="text" class="span3" style="font-size:12pt;height:30px;"placeholder="Username">
-    		<input type="password" class="span3" style="font-size:12pt;height:30px;"placeholder="password"><br>
-    </form>
-    </div>
-    
-    
+	<div class="container">
     <header class="jumbotron subhead" id="overview">
   <div class="subnav">
     <ul class="nav nav-pills">

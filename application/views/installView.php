@@ -123,7 +123,7 @@
 		</tr>
 		<tr>
 			<td>Time Zone</td>
-			<td><input type="text" class="span2" name="time_zone"style="font-size:12pt;height:30px;width:400px;"placeholder="india"></td>
+			<td><input type="text" class="span2" name="timezone"style="font-size:12pt;height:30px;width:400px;"placeholder="india"></td>
 		</tr>
 		<tr>
 			<td>Username</td>

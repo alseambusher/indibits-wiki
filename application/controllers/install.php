@@ -16,6 +16,13 @@ class Install extends CI_Controller {
 		$this->form_validation->set_rules('admin_username','Admin username','required|xss_clean');
 		$this->form_validation->set_rules('admin_password','Admin password','required|xss_clean|matches[admin_password_confirm]');
 		$this->form_validation->set_rules('admin_password_confirm','Admin password Confirmation','required|xss_clean');
+		$this->form_validation->set_rules('first_name','First name','required|xss_clean');
+		$this->form_validation->set_rules('last_name','Last name','required|xss_clean');
+		$this->form_validation->set_rules('email','Email','required|xss_clean|valid_email');
+		$this->form_validation->set_rules('timezone','Timezone','required|xss_clean');
+		$this->form_validation->set_rules('username','username','required|xss_clean');
+		$this->form_validation->set_rules('password','password','required|xss_clean|matches[confirm_password]');
+		$this->form_validation->set_rules('confirm_password','Password Confirmation','required|xss_clean');
 		$this->form_validation->set_error_delimiters('<div id="notification">
 														<div class="alert alert-error">
 															<button class="close" data-dismiss="alert">×</button>
@@ -39,34 +46,10 @@ class Install extends CI_Controller {
 					$_POST['terms']
 				);
 				//$this->db->query(file_get_contents('export.sql'));
-				$this->db->query("
-	CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT primary key,
-  `first_name` varchar(30) DEFAULT NULL,
-  `last_name` varchar(30) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `timezone` varchar(50) DEFAULT NULL,
-  `username` varchar(50) DEFAULT NULL,
-  `password` varchar(50) DEFAULT NULL,
-  `account_type` varchar(30) DEFAULT NULL,
-  `signup_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `notifications` text
-);");
-				$this->db->query("
-	CREATE TABLE IF NOT EXISTS `wikis` (
-  `ownerid` int(11) DEFAULT NULL,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `wikiid` int(11) NOT NULL AUTO_INCREMENT primary key,
-  `editors` text
-);");
-				$this->db->query("
-	CREATE TABLE IF NOT EXISTS `wiki_data` (
-  `wikiid` int(11) DEFAULT NULL,
-  `versionid` int(11) DEFAULT NULL,
-  `wiki_title` text,
-  `wiki_description` text,
-  `editorid` int(11) DEFAULT NULL
-);");
+				$this->load->model("wiki_acc");
+				$this->wiki_acc->make_tables();
+				$data =array("first_name"=>$_POST['first_name'],"last_name"=>$_POST['last_name'],"email"=>$_POST['email'],"timezone"=>$_POST['email'],"username"=>$_POST['username'],"password"=>md5($_POST['password']));
+				$this->wiki_acc->new_account($data);
 				redirect('install/success');
 			}
 		}
@@ -88,6 +71,7 @@ class Install extends CI_Controller {
 			</div>';
 	}
 	function updateConfig($wikiapp_name,$wikiapp_description,$db_host,$db_username,$db_password,$db_name,$admin_username,$admin_password,$copyright="",$terms=""){
+		//creates or updates config file
 		$newconfig='<?php  if ( ! defined("BASEPATH")) exit("No direct script access allowed");
 					$wikiapp_name="'.$wikiapp_name.'";
 					$wikiapp_description="'.$wikiapp_description.'";
@@ -96,7 +80,7 @@ class Install extends CI_Controller {
 					$db_password="'.$db_password.'";
 					$db_name="'.$db_name.'";
 					$admin_username="'.$admin_username.'";
-					$admin_password="'.$admin_password.'";
+					$admin_password="'.md5($admin_password).'";
 					$copyright="'.$copyright.'";
 					$terms="'.$terms.'";
 					$default_controller="welcome";?>';	
@@ -105,6 +89,8 @@ class Install extends CI_Controller {
 		fclose($fp);	
 	}
 	function test(){
+		echo "<p>You should see this:</p>";
+		echo "<blockquote style='border:1px black solid;'>Array ( [0] => Array ( [Tables_in_indibits_wiki] => users ) [1] => Array ( [Tables_in_indibits_wiki] => wiki_data ) [2] => Array ( [Tables_in_indibits_wiki] => wikis ) ) </blockquote>";
 		print_r($this->db->query("show tables")->result_array());
 	}
 }
