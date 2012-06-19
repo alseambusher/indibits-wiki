@@ -82,6 +82,13 @@ class Wiki_acc extends CI_Model
         }
 		
 	}
+	function isLoggedIn(){
+		$this->load->library('session');
+		if(($this->session->userdata('uid')=="")&&($this->session->userdata('account_type')==""))
+			return FALSE;
+		else
+			return TRUE;
+	}
 	function make_tables(){// this is used at the time of install
 		$this->db->query("
 	CREATE TABLE IF NOT EXISTS `users` (

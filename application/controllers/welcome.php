@@ -16,11 +16,21 @@ class Welcome extends CI_Controller {
 		$this->load->model("wiki_acc");
 		if($this->wiki_acc->login($_POST['username'],$_POST['password'])==TRUE){
 			$this->load->library('session');
-			echo "Logged in !!!!!";
+			$session=$this->db->query("select id,account_type from users where username='".$_POST['username']."' and password='".md5($_POST['password'])."'")->result_array();
+			$this->session->set_userdata(array('uid'=>$session[0]['id'],'account_type'=>$session[0]['account_type']));
+			$this->load->helper('url'); 
+			redirect("user_home");
+			//echo $this->session->userdata('uid')." ".$this->session->userdata('account_type');
 		}
 		else{
 			//show error message
 			echo "failed to login:(";
 		}
+	}
+	function logout(){
+		$this->load->library('session');
+		$this->session->sess_destroy();
+		$this->load->helper('url'); 
+		redirect($this->config->base_url());
 	}
 }

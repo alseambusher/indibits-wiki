@@ -26,12 +26,21 @@
           </a>
           <a class="brand" href="#"><? echo $wikiapp_name;?></a>
           <ul class="nav pull-right">
-          <!-- TODO this will be logout if already logged in -->
+          <? 
+			$this->load->library('session');
+			$this->load->helper('url');
+			if(($this->session->userdata('uid')=="")&&($this->session->userdata('account_type')=="")){
+          ?>
           <form class="navbar-search pull-left" method="post" action="<? echo $this->config->base_url().index_page()."/welcome/login";?>">
 			<input type="text" name="username"class="search-query" placeholder="Username" style="font-size:11pt;height:25px;">
 			<input type="password" name="password"class="search-query" placeholder="Password" style="font-size:11pt;height:25px;">
 			<button type="submit" style="visibility:hidden;">Login</button>
 		  </form>
+		  <?
+			}
+			else
+				echo '<li><a href="'.$this->config->base_url().index_page().'/welcome/logout">Logout</a></li>';
+		  ?>
             <li class="divider-vertical"></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help<b class="caret"></b></a>
