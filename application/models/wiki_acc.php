@@ -82,7 +82,7 @@ class Wiki_acc extends CI_Model
         }
 		
 	}
-	function make_tables(){
+	function make_tables(){// this is used at the time of install
 		$this->db->query("
 	CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT primary key,

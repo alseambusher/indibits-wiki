@@ -15,7 +15,7 @@ class Welcome extends CI_Controller {
 	function login(){
 		$this->load->model("wiki_acc");
 		if($this->wiki_acc->login($_POST['username'],$_POST['password'])==TRUE){
-			//set sessions and redirect
+			$this->load->library('session');
 			echo "Logged in !!!!!";
 		}
 		else{
