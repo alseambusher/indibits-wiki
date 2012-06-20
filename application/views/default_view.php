@@ -24,12 +24,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#"><? echo $wikiapp_name;?></a>
+          <a class="brand" href="<?echo $this->config->base_url();?>"><? echo $wikiapp_name;?></a>
           <ul class="nav pull-right">
           <? 
-			$this->load->library('session');
-			$this->load->helper('url');
-			if(($this->session->userdata('uid')=="")&&($this->session->userdata('account_type')=="")){
+			$this->load->model("wiki_acc");
+			if(!wiki_acc::isLoggedIn()){
           ?>
           <form class="navbar-search pull-left" method="post" action="<? echo $this->config->base_url().index_page()."/welcome/login";?>">
 			<input type="text" name="username"class="search-query" placeholder="Username" style="font-size:11pt;height:25px;">
@@ -38,8 +37,10 @@
 		  </form>
 		  <?
 			}
-			else
-				echo '<li><a href="'.$this->config->base_url().index_page().'/welcome/logout">Logout</a></li>';
+			else{
+				echo "<li><a>Hi, ".wiki_acc::get_user_data("fullname")."</a></li>";
+				echo '<li><a href="'.$this->config->base_url().index_page().'/welcome/logout"><i class="icon-off"></i> Logout</a></li>';
+			}
 		  ?>
             <li class="divider-vertical"></li>
             <li class="dropdown">
@@ -47,14 +48,16 @@
               <ul class="dropdown-menu">
                 <li><a href="#">About Indibits</a></li>
                 <li><a href="#">About Indibits-wiki</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Settings</a></li>
+                <?
+				if($this->session->userdata('account_type')=="owner")
+					echo '<li class="divider"></li>
+                <li><a href="#"><i class="icon-wrench"></i> Settings</a></li>';//settings is shown only to owners
+                ?>
                 <li class="divider"></li>
                 <li><a href="#">Help</a></li>
               </ul>
             </li>
           </ul>
-          
           
           
         </div>
@@ -81,36 +84,7 @@
       </div>
     </div>	
     <!-- Lower status bar ends -->
-	<div class="container">
-    <header class="jumbotron subhead" id="overview">
-  <div class="subnav">
-    <ul class="nav nav-pills">
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Buttons <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="#buttonGroups">Button groups</a></li>
-          <li><a href="#buttonDropdowns">Button dropdowns</a></li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Navigation <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="#navs">Nav, tabs, pills</a></li>
-          <li><a href="#navbar">Navbar</a></li>
-          <li><a href="#breadcrumbs">Breadcrumbs</a></li>
-          <li><a href="#pagination">Pagination</a></li>
-        </ul>
-      </li>
-      <li><a href="#labels">Labels</a></li>
-      <li><a href="#badges">Badges</a></li>
-      <li><a href="#typography">Typography</a></li>
-      <li><a href="#thumbnails">Thumbnails</a></li>
-      <li><a href="#alerts">Alerts</a></li>
-      <li><a href="#progress">Progress bars</a></li>
-      <li><a href="#misc">Miscellaneous</a></li>
-    </ul>
-  </div>
-</header>
+    <div class="container">
 <!-- container class not closed!!! -->
     
     

@@ -4,7 +4,10 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->helper(array('form','url'));
+		$this->load->model('wiki_acc');
+		if($this->wiki_acc->isLoggedIn())
+			redirect("user_home");
+		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->model("wiki_model");
 		$this->load->view("includeBootstrap");
@@ -15,10 +18,8 @@ class Welcome extends CI_Controller {
 	function login(){
 		$this->load->model("wiki_acc");
 		if($this->wiki_acc->login($_POST['username'],$_POST['password'])==TRUE){
-			$this->load->library('session');
 			$session=$this->db->query("select id,account_type from users where username='".$_POST['username']."' and password='".md5($_POST['password'])."'")->result_array();
 			$this->session->set_userdata(array('uid'=>$session[0]['id'],'account_type'=>$session[0]['account_type']));
-			$this->load->helper('url'); 
 			redirect("user_home");
 			//echo $this->session->userdata('uid')." ".$this->session->userdata('account_type');
 		}
@@ -28,9 +29,7 @@ class Welcome extends CI_Controller {
 		}
 	}
 	function logout(){
-		$this->load->library('session');
 		$this->session->sess_destroy();
-		$this->load->helper('url'); 
 		redirect($this->config->base_url());
 	}
 }

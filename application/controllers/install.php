@@ -5,7 +5,7 @@ class Install extends CI_Controller {
 	{
 		$this->load->view('includeBootstrap');
 		
-		$this->load->helper(array('form','url'));
+		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('wikiapp_name','Name of the wiki application','required|xss_clean');
 		$this->form_validation->set_rules('wikiapp_description','Description of wiki application','required|xss_clean');

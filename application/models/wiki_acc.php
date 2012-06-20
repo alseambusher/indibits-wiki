@@ -83,11 +83,33 @@ class Wiki_acc extends CI_Model
 		
 	}
 	function isLoggedIn(){
-		$this->load->library('session');
 		if(($this->session->userdata('uid')=="")&&($this->session->userdata('account_type')==""))
 			return FALSE;
 		else
 			return TRUE;
+	}
+	function get_user_data($type){
+		if($type=="fullname"){
+			$data=$this->db->query("select first_name,last_name from users where id='".$this->session->userdata('uid')."'")->result_array();
+			return $data[0]['first_name']." ".$data[0]['last_name'];
+		}
+		else
+			return "invalid request";
+	}
+	function send_notification($message,$uid){
+		$query=$this->db->query("select notifications from users where id='".$uid."'")->result_array();
+		if($query[0]['notifications']==NULL)
+			$notifications=array();
+		else
+			$notifications=unserialize($query[0]['notifications']);
+		$this->load->helper("date");
+		array_push($notifications,array('time'=>standard_date('DATE_RFC822', time()),'message'=>$message));
+		$data['notifications']=serialize($notifications);
+		$this->db->update('users',$data,array('id'=>$uid));
+	}
+	function get_notifications($uid){
+		$query=$this->db->query("select notifications from users where id='".$uid."'")->result_array();
+		return unserialize($query[0]['notifications']);
 	}
 	function make_tables(){// this is used at the time of install
 		$this->db->query("
