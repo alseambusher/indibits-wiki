@@ -11,13 +11,16 @@ class User_home extends CI_Controller {
 		if($this->wiki_acc->isLoggedIn()){
 			$this->load->view("default_view");
 			$data['wiki_list']=serialize($this->wiki_model->fetch_wiki_list());
-			$data['pageId']="notifications";
+			$notifications=$this->wiki_acc->get_notifications($this->session->userdata('uid'));
+			if($notifications!=Null)
+				$data['notifications']=$notifications;
+			else
+				$data['notifications']=array();
 			$this->load->view("user_home_view",$data);
-			//$this->wiki_acc->send_notification("This notification was added to test the notifications",'1');
+			//$this->wiki_acc->send_notification("A new account has been made for editor: Spurthi ",'1');
 			//TODO make notifications include who has sent the notification
-			foreach($this->wiki_acc->get_notifications($this->session->userdata('uid')) as $row){
-				echo $row['message']." by was sent at time ".$row['time']."<br>";
-			}
+			
+				
 		}
 		else{
 			echo "not logged in:(";

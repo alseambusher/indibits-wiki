@@ -103,7 +103,7 @@ class Wiki_acc extends CI_Model
 		else
 			$notifications=unserialize($query[0]['notifications']);
 		$this->load->helper("date");
-		array_push($notifications,array('time'=>standard_date('DATE_RFC822', time()),'message'=>$message));
+		array_unshift($notifications,array('time'=>standard_date('DATE_RFC822', time()),'message'=>$message));
 		$data['notifications']=serialize($notifications);
 		$this->db->update('users',$data,array('id'=>$uid));
 	}
