@@ -46,13 +46,13 @@ if(wiki_acc::isLoggedIn()){
 		</div>
 	</div>
 	<div id='editors_tab'>
-	vsdfvsdf
+	This must have details about all the editors and their contributions
 	</div>
 	<div id='wikis_tab'>
-	dsfvsdfv
+	This will have all the wikis and one can edit it
 	</div>
 	<div id='accounts_tab'>
-	sdfvsdfvsdf
+	This is where owners can create new editor accounts and promote editors to owners
 	</div>
 <?
 }
