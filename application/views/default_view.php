@@ -46,12 +46,12 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">About Indibits</a></li>
+                <li><a href="http://www.indibits.com/about/">About Indibits</a></li>
                 <li><a href="#">About Indibits-wiki</a></li>
                 <?
 				if($this->session->userdata('account_type')=="owner")
 					echo '<li class="divider"></li>
-                <li><a href="http://www.indibits.com/about/"><i class="icon-wrench"></i> Settings</a></li>';//settings is shown only to owners
+                <li><a href="#"><i class="icon-wrench"></i> Settings</a></li>';//settings is shown only to owners
                 ?>
                 <li class="divider"></li>
                 <li><a href="#">Help</a></li>

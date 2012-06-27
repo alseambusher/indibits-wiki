@@ -9,7 +9,9 @@ if(wiki_acc::isLoggedIn()){
 		<button class="btn"id="accounts"onclick="switchActive(this);"><i class="icon-wrench"></i> Manage Accounts</button>
 		<a class="btn"id="refresh" href="<? echo $this->config->base_url().index_page()."/user_home";?>"><i class="icon-home"></i> Refresh Dashboard</a>
 	</div>
+	<style type="text/css">.empty{}</style>
 	<script type="text/javascript">
+		var aligin;
 		function setActive(){
 			document.getElementById('notifications').setAttribute('class',' btn active');
 			$('#editors_tab').fadeOut(0);
@@ -30,6 +32,9 @@ if(wiki_acc::isLoggedIn()){
 		}
 		setTimeout('setActive();',0);
 	</script>
+	
+	
+	
 	<div id='notifications_tab'>
 		<div class="row-fluid" style="height:80%;overflow-y:scroll;">
           <div class="well sidebar-nav">
@@ -45,12 +50,59 @@ if(wiki_acc::isLoggedIn()){
 		  </div>
 		</div>
 	</div>
+	
+	
+	
 	<div id='editors_tab'>
-	This must have details about all the editors and their contributions
+	<table class="table">
+		<tr><th>Editors</th><th>Owners</th></tr>
+		<tr><td>
+		<div class="row-fluid" style="height:500px;overflow-y:scroll;">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+			<?
+				$i=0;
+				foreach($editors as $row){
+					echo "<li><a href='#'id='owner_".$i."'class='empty'rel='popover' title='".wiki_acc::get_individual_user_data($row['id'],'fullname')."' data-content='<strong>username</strong>: ".$row['username']."<br><strong>number of wikis</strong>: ".wiki_acc::get_individual_user_data($row['id'],'number_of_wikis')."<br><strong>number of edits</strong>: ".wiki_acc::get_individual_user_data($row['id'],'number_of_edits')."<br>' 
+					onmouseover='$(\"#\"+this.id).popover(\"show\");'>".$row['first_name'].' '.$row['last_name'].'<em style="font-size:10px;color:gray;"> -since: '.$row['signup_time']."</em></a></li>";
+					$i++;
+				}
+			?>
+			</ul>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+		  </div>
+		</div>
+	  </td><td>
+		<div class="row-fluid" style="height:500px;overflow-y:scroll;">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+			<?
+				$i=0;
+				foreach($owners as $row){
+					echo "<li><a href='#'id='owner_".$i."'class='empty'rel='popover' title='".wiki_acc::get_individual_user_data($row['id'],'fullname')."' data-content='<strong>username</strong>: ".$row['username']."<br><strong>number of wikis</strong>: ".wiki_acc::get_individual_user_data($row['id'],'number_of_wikis')."<br><strong>number of edits</strong>: ".wiki_acc::get_individual_user_data($row['id'],'number_of_edits')."<br>' 
+					onmouseover='$(\"#\"+this.id).popover(\"show\");'>".$row['first_name'].' '.$row['last_name'].'<em style="font-size:10px;color:gray;"> -since: '.$row['signup_time']."</em></a></li>";
+					$i++;
+				}
+			?>
+			</ul>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+		  </div>
+		</div>
+	  </div>
+	  </td></tr>
+	  </table>
 	</div>
+	
+	
+	
 	<div id='wikis_tab'>
 	This will have all the wikis and one can edit it
 	</div>
+	
+	
+	
 	<div id='accounts_tab'>
 	This is where owners can create new editor accounts and promote editors to owners
 	</div>

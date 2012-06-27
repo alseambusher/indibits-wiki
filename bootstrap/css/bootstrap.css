@@ -1623,7 +1623,8 @@ table {
 
 .table tbody tr:hover td,
 .table tbody tr:hover th {
-  background-color: #f5f5f5;
+	#I REMOVED THE HOVER ON TABLE
+  #background-color: #f5f5f5;
 }
 
 table .span1 {

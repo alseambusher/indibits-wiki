@@ -24,8 +24,16 @@ class Welcome extends CI_Controller {
 			//echo $this->session->userdata('uid')." ".$this->session->userdata('account_type');
 		}
 		else{
-			//show error message
-			echo "failed to login:(";
+			$this->load->view('includeBootstrap');
+			echo '<div class="container">
+				<div id="notification">
+				<div class="alert alert-error">
+					<br><br><h2><strong>Failed to login :(</strong></h2><h3>Please check the login information and try again.</h3>
+					<br>
+					<h3><a href="'.$this->config->base_url().'">Click here to go back to main page</a><br></h3>
+				</div>
+				</div>
+			</div>';
 		}
 	}
 	function logout(){

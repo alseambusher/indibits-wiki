@@ -89,12 +89,42 @@ class Wiki_acc extends CI_Model
 			return TRUE;
 	}
 	function get_user_data($type){
+		/*
+		 * fullname
+		 * all_editors
+		 * all_owners
+		 * all_users
+		 */
 		if($type=="fullname"){
 			$data=$this->db->query("select first_name,last_name from users where id='".$this->session->userdata('uid')."'")->result_array();
 			return $data[0]['first_name']." ".$data[0]['last_name'];
 		}
+		if($type=="all_editors")
+			return $this->db->query("select * from users where account_type='editor'")->result_array();
+		if($type=="all_owners")
+			return $this->db->query("select * from users where account_type='owner'")->result_array();
+		if($type==="all_users")
+			return $this->db->query("select * from users")->result_array();
 		else
 			return "invalid request";
+	}
+	function get_individual_user_data($uid,$type){
+		/*
+		 * number_of_wikis
+		 * number_of_edits
+		 * fullname
+		 */
+		 if($type=="number_of_wikis"){
+			 return sizeof($this->db->query("select wikiid from wikis where editors='".$uid."'")->result_array());
+		 }
+		 if($type=="number_of_edits"){
+			 return sizeof($this->db->query("select wikiid from wiki_data where editorid='".$uid."'")->result_array());
+		 }
+		 if($type=="fullname"){
+			$data=$this->db->query("select first_name,last_name from users where id='".$uid."'")->result_array();
+			return $data[0]['first_name']." ".$data[0]['last_name'];
+		}
+		return "Invalid request";
 	}
 	function send_notification($message,$uid){
 		$query=$this->db->query("select notifications from users where id='".$uid."'")->result_array();
