@@ -17,8 +17,11 @@ class User_home extends CI_Controller {
 			$data['owners']=$this->wiki_acc->get_user_data('all_owners');
 			$data['all_users']=$this->wiki_acc->get_user_data('all_users');
 			$this->load->view("user_home_view",$data);
-			//$this->wiki_acc->send_notification("A new account has been made for editor: Spurthi ",'1');
-			//TODO make notifications include who has sent the notification
+			//$this->wiki_acc->send_notification("Congrats!!! Your account was created! ",'1');
+			//$this->wiki_acc->send_notification("Congrats!!! You have been promoted to be owner!! ",'1');
+			//$this->wiki_acc->send_notification("Congrats!!! You are editor again!! ",'1');
+			//$this->wiki_acc->send_notification("Congrats!!! You have been promoted to be owner!! ",'1');
+			//$this->wiki_acc->send_notification("A new account has been made for editor: Ananth ",'1');
 			
 				
 		}

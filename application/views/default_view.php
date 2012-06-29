@@ -51,7 +51,7 @@
                 <?
 				if($this->session->userdata('account_type')=="owner")
 					echo '<li class="divider"></li>
-                <li><a href="#"><i class="icon-wrench"></i> Settings</a></li>';//settings is shown only to owners
+                <li><a href="'.$this->config->base_url().index_page().'/install/settings"><i class="icon-wrench"></i> Settings</a></li>';//settings is shown only to owners
                 ?>
                 <li class="divider"></li>
                 <li><a href="#">Help</a></li>

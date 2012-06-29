@@ -2,7 +2,7 @@
 //FOR EDITORS ONLY NOTIFICATION AND WIKIS MUST BE AVAILABLE
 $this->load->model("wiki_acc");
 if(wiki_acc::isLoggedIn()){
-?>
+?><br>
 	<div class="btn-group">
 		<button class="btn" id="notifications"onclick="switchActive(this);"><i class="icon-exclamation-sign"></i> Notifications</button>
 		<button class="btn" id="editors" onclick="switchActive(this);" value="abavafva"><i class="icon-user"></i> Editors</button>

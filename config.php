@@ -11,4 +11,5 @@ Cricket was first played in southern England in the 16th century. By the end of 
 					$admin_password="7a11687e0a2f4405605f91ded07f2ef5";
 					$copyright="none";
 					$terms="none";
-					$default_controller="welcome";?>
+					$default_controller="welcome";
+					$theme='bootstrap';?>

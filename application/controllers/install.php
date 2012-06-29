@@ -3,6 +3,9 @@
 class Install extends CI_Controller {
 	public function index()
 	{
+		include('config.php');
+		if($default_controller=="welcome")
+			redirect('install/success');
 		$this->load->view('includeBootstrap');
 		
 		$this->load->helper('form');
@@ -65,7 +68,7 @@ class Install extends CI_Controller {
 					The following link will take you to the home of your wiki application<br>
 					<h3><a href="'.$this->config->base_url().'">'.$this->config->base_url().'</a><br></h3>
 					To make any changes to the existing settings go to:<br>
-					<a href="'.$this->config->base_url().'index.php/settings">'.$this->config->base_url().'index.php/settings</a><br>
+					<a href="'.$this->config->base_url().'index.php/install/settings">'.$this->config->base_url().'index.php/install/settings</a><br>
 				</div>
 				</div>
 			</div>';
@@ -83,10 +86,14 @@ class Install extends CI_Controller {
 					$admin_password="'.md5($admin_password).'";
 					$copyright="'.$copyright.'";
 					$terms="'.$terms.'";
-					$default_controller="welcome";?>';	
+					$default_controller="welcome";
+					$theme="bootstrap";?>';	
 		$fp = fopen('config.php', 'w');
 		fwrite($fp, $newconfig);
 		fclose($fp);	
+	}
+	function settings(){
+		echo "THIS PAGE IS STILL UNDER CONSTRUCTION";
 	}
 	function test(){
 		echo "<p>You should see this:</p>";

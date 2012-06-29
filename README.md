@@ -1,6 +1,7 @@
 Introduction
 ============
-This is a wiki application
+This is an open source,simple, clean,"copy->paste->done!!" type wiki application.
+This wiki application comes with 12 different themes. Users may use any theme depending on their requirement.
 How to use
 ==========
 1. Copy and paste the code to your host
