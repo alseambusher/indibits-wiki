@@ -15,6 +15,7 @@ class User_home extends CI_Controller {
 			$data['notifications']=$this->wiki_acc->get_notifications($this->session->userdata('uid'));
 			$data['editors']=$this->wiki_acc->get_user_data('all_editors');
 			$data['owners']=$this->wiki_acc->get_user_data('all_owners');
+			$data['all_users']=$this->wiki_acc->get_user_data('all_users');
 			$this->load->view("user_home_view",$data);
 			//$this->wiki_acc->send_notification("A new account has been made for editor: Spurthi ",'1');
 			//TODO make notifications include who has sent the notification
@@ -32,6 +33,9 @@ class User_home extends CI_Controller {
 				</div>
 			</div>';
 		}
+	}
+	function updateUsers(){
+		//echo $_POST['']
 	}
 }
 ?>

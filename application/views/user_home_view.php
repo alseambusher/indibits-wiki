@@ -1,4 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+//FOR EDITORS ONLY NOTIFICATION AND WIKIS MUST BE AVAILABLE
 $this->load->model("wiki_acc");
 if(wiki_acc::isLoggedIn()){
 ?>
@@ -11,7 +12,6 @@ if(wiki_acc::isLoggedIn()){
 	</div>
 	<style type="text/css">.empty{}</style>
 	<script type="text/javascript">
-		var aligin;
 		function setActive(){
 			document.getElementById('notifications').setAttribute('class',' btn active');
 			$('#editors_tab').fadeOut(0);
@@ -29,6 +29,17 @@ if(wiki_acc::isLoggedIn()){
 			$('#wikis_tab').fadeOut(0);
 			$('#accounts_tab').fadeOut(0);
 			$('#'+button.id+"_tab").fadeIn(500);
+		}
+		function launch_modal(header,body,form_action,args){
+			document.getElementById("modal_header").innerHTML=header;
+			document.getElementById("modal_body").innerHTML=body;
+			document.getElementById("modal_form").action=form_action;
+			$('#myModal').modal('show')
+			if((args=='editor')||(args=='owner'))
+				document.getElementById('new_account_type').value=args;
+		}
+		function confirm_delete(){
+			launch_modal('Are you sure you wan\'t to delete this user?','<p>Please note that this is irreversable!</p>','#','');
 		}
 		setTimeout('setActive();',0);
 	</script>
@@ -80,7 +91,7 @@ if(wiki_acc::isLoggedIn()){
 			<?
 				$i=0;
 				foreach($owners as $row){
-					echo "<li><a href='#'id='owner_".$i."'class='empty'rel='popover' title='".wiki_acc::get_individual_user_data($row['id'],'fullname')."' data-content='<strong>username</strong>: ".$row['username']."<br><strong>number of wikis</strong>: ".wiki_acc::get_individual_user_data($row['id'],'number_of_wikis')."<br><strong>number of edits</strong>: ".wiki_acc::get_individual_user_data($row['id'],'number_of_edits')."<br>' 
+					echo "<li><a href='#'id='owner_".$i."'class='empty'rel='popover' title='".wiki_acc::get_individual_user_data($row['id'],'fullname')."' data-content='<strong>username</strong>: ".$row['username']."<br><strong>email:</strong> ".$row['email']."<br><strong>number of wikis</strong>: ".wiki_acc::get_individual_user_data($row['id'],'number_of_wikis')."<br><strong>number of edits</strong>: ".wiki_acc::get_individual_user_data($row['id'],'number_of_edits')."<br>' 
 					onmouseover='$(\"#\"+this.id).popover(\"show\");'>".$row['first_name'].' '.$row['last_name'].'<em style="font-size:10px;color:gray;"> -since: '.$row['signup_time']."</em></a></li>";
 					$i++;
 				}
@@ -104,8 +115,50 @@ if(wiki_acc::isLoggedIn()){
 	
 	
 	<div id='accounts_tab'>
-	This is where owners can create new editor accounts and promote editors to owners
+	<table class="table">
+		<tr><th>Existng Users</th><th>Generate new editor account</th></tr>
+		<tr><td>
+		<div class="row-fluid" style="height:500px;overflow-y:scroll;">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+			<?
+				$i=0;
+				foreach($all_users as $row){
+					echo "<li><a href='#' onclick='".'launch_modal("Edit user account","<strong>Change Account type:</strong><br><select name=\"new_account_type\" id=\"new_account_type\"><option value=\"editor\">Editor</option><option value=\"owner\">Owner</option></select><br><a class=\"btn btn-danger\" onclick=\"confirm_delete();\">Delete this account</a>","#","'.$row['account_type'].'");'
+					."'><h3>".$row['account_type'].'</h3> '.$row['first_name'].' '.$row['last_name'].'<em style="font-size:10px;color:gray;"> -since: '.$row['signup_time']."</em></a></li>";
+					$i++;
+				}
+			?>
+			</ul>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+		  </div>
+		</div>
+	  </td><td>
+		<table class='table'>
+			<tr>
+				<td></td>
+			</tr>
+		</table>
+	  </td></tr>
+	  </table>
 	</div>
 <?
 }
 ?>
+
+<div class="modal hide fade" id="myModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3 id="modal_header">Modal header</h3>
+  </div>
+  <form method="post" id="modal_form" action="#">
+  <div class="modal-body" id="modal_body">
+    <p>One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal" id="modal_close">Close</a>
+    <button type="submit"href="#" class="btn btn-primary" id="modal_save">Save changes</button>
+  </div>
+  </form>
+</div>
