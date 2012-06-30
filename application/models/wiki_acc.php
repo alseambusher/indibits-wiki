@@ -20,7 +20,7 @@ class Wiki_acc extends CI_Model
         $this-> db -> select('id, username, password');
         $this-> db -> from('users');
         $this-> db -> where('username = ' . "'" . $username . "'");
-        $this-> db -> where('password = ' . "'" . md5($pass) . "'");//i am assuming md5 if u want to salt it or any other thing lwt mw know
+        $this-> db -> where('password = ' . "'" . md5($pass) . "'");
         $this-> db -> limit(1);
 
         $query = $this -> db -> get();
@@ -126,6 +126,10 @@ class Wiki_acc extends CI_Model
 		}
 		return "Invalid request";
 	}
+	function get_id($username){
+		$data=$this->db->query("select id from users where username='".$username."'")->result_array();
+		return $data[0]['id'];
+	}
 	function send_notification($message,$uid){
 		$query=$this->db->query("select notifications from users where id='".$uid."'")->result_array();
 		if($query[0]['notifications']==NULL)
@@ -171,5 +175,5 @@ class Wiki_acc extends CI_Model
   `editorid` int(11) DEFAULT NULL
 );");
 	}
-}		
+}	
 ?>

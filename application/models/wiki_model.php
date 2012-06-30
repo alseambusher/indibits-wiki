@@ -13,8 +13,11 @@ class Wiki_model extends CI_Model{
 	function __construct(){
 		parent::__construct();
 	}
-	function fetch_wiki_list(){
-		return $this->db->query("select * from wikis inner join wiki_data on wikis.wikiid=wiki_data.wikiid group by wikis.wikiid")->result_array();
+	function fetch_wiki_list($order="random"){
+		if($order=="random")
+			return $this->db->query("select * from wikis inner join wiki_data on wikis.wikiid=wiki_data.wikiid group by wikis.wikiid order by rand()")->result_array();
+		if($order=="recent")
+			return $this->db->query("select * from wikis inner join wiki_data on wikis.wikiid=wiki_data.wikiid group by wikis.wikiid order by time desc")->result_array();
 	}
 	function fetch_wiki($wikiid,$versionid=0){
 		if($versionid==0){

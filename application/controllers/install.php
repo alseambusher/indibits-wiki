@@ -51,7 +51,7 @@ class Install extends CI_Controller {
 				//$this->db->query(file_get_contents('export.sql'));
 				$this->load->model("wiki_acc");
 				$this->wiki_acc->make_tables();
-				$data =array("first_name"=>$_POST['first_name'],"last_name"=>$_POST['last_name'],"email"=>$_POST['email'],"timezone"=>$_POST['email'],"username"=>$_POST['username'],"password"=>md5($_POST['password']));
+				$data =array("first_name"=>$_POST['first_name'],"last_name"=>$_POST['last_name'],"email"=>$_POST['email'],"timezone"=>$_POST['timezone'],"username"=>$_POST['username'],"password"=>md5($_POST['password']));
 				$this->wiki_acc->new_account($data);
 				redirect('install/success');
 			}

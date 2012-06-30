@@ -11,7 +11,8 @@ class Welcome extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->model("wiki_model");
 		$this->load->view("includeBootstrap");
-		$data['wiki_list']=serialize($this->wiki_model->fetch_wiki_list());
+		$data['wiki_list']=serialize($this->wiki_model->fetch_wiki_list("random"));
+		$data['wiki_recent']=serialize($this->wiki_model->fetch_wiki_list("recent"));
 		$this->load->view("default_view");
 		$this->load->view("home_view",$data);
 	}
