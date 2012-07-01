@@ -48,11 +48,11 @@ class Install extends CI_Controller {
 					$_POST['copyright'],
 					$_POST['terms']
 				);
-				//$this->db->query(file_get_contents('export.sql'));
 				$this->load->model("wiki_acc");
 				$this->wiki_acc->make_tables();
 				$data =array("first_name"=>$_POST['first_name'],"last_name"=>$_POST['last_name'],"email"=>$_POST['email'],"timezone"=>$_POST['timezone'],"username"=>$_POST['username'],"password"=>md5($_POST['password']));
 				$this->wiki_acc->new_account($data);
+				$this->wiki_acc->send_notification("Congrats!!! Your account was created!",$this->wiki_acc->get_id($_POST['username']));
 				redirect('install/success');
 			}
 		}
@@ -73,7 +73,7 @@ class Install extends CI_Controller {
 				</div>
 			</div>';
 	}
-	function updateConfig($wikiapp_name,$wikiapp_description,$db_host,$db_username,$db_password,$db_name,$admin_username,$admin_password,$copyright="",$terms=""){
+	function updateConfig($wikiapp_name,$wikiapp_description,$db_host,$db_username,$db_password,$db_name,$admin_username,$admin_password,$copyright="",$terms="",$theme="bootstrap"){
 		//creates or updates config file
 		$newconfig='<?php  if ( ! defined("BASEPATH")) exit("No direct script access allowed");
 					$wikiapp_name="'.$wikiapp_name.'";
@@ -87,13 +87,48 @@ class Install extends CI_Controller {
 					$copyright="'.$copyright.'";
 					$terms="'.$terms.'";
 					$default_controller="welcome";
-					$theme="bootstrap";?>';	
+					$theme="'.$theme.'";?>';	
 		$fp = fopen('config.php', 'w');
 		fwrite($fp, $newconfig);
 		fclose($fp);	
 	}
 	function settings(){
-		echo "THIS PAGE IS STILL UNDER CONSTRUCTION";
+		include('config.php');
+		if(!$this->session->userdata('account_type')=="owner")
+			redirect("user_home");
+		if(isset($_POST['save']))
+			$this->updateConfig($wikiapp_name,$wikiapp_description,$db_host,$db_username,$db_password,$db_name,$admin_username,$admin_password,$copyright,$terms,$theme=$_POST['theme']);
+		$this->load->view('includeBootstrap');
+		echo "<form action='' method='post'>
+			<br><br><table class='table table-striped container'>
+				<tr>
+					<td>Select Theme<h6>default is bootstrap</h6></td>
+					<td>
+					<select name='theme' id='theme'>
+						<option value='bootstrap'>bootstrap</option>
+						<option value='amelina'>amelina</option>
+						<option value='cerulean'>cerulean</option>
+						<option value='cyborg'>cyborg</option>
+						<option value='journal'>journal</option>
+						<option value='readable'>readable</option>
+						<option value='simplex'>simplex</option>
+						<option value='slate'>slate</option>
+						<option value='spacelab'>spacelab</option>
+						<option value='spruce'>spruce</option>
+						<option value='superhero'>superhero</option>
+						<option value='united'>united</option>
+					</select>
+					</td>
+				</tr>
+				<tr><td><button class='btn btn-primary type='submit' name='save' value='save'>Save</button></td><td></td></tr>
+			  </table>
+			  </form>";
+		echo "<script type='text/javascript'>
+			function select_theme(){
+				document.getElementById('theme').value='".$theme."';
+			}
+			setTimeout('select_theme()',0);
+		</script>";
 	}
 	function test(){
 		echo "<p>You should see this:</p>";
