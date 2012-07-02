@@ -23,7 +23,7 @@ class Wiki extends CI_Controller {
 		echo "new";
 	}
 	function edit(){
-		$this->load->model("wiki_acc");
+		
 		if(!$this->wiki_acc->isLoggedIn())
 			redirect(base_url());
 		include("markdown.php");

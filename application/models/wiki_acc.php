@@ -158,14 +158,14 @@ class Wiki_acc extends CI_Model
   `account_type` varchar(30) DEFAULT NULL,
   `signup_time` timestamp,
   `notifications` text
-);");
+)");
 				$this->db->query("
 	CREATE TABLE IF NOT EXISTS `wikis` (
   `ownerid` int(11) DEFAULT NULL,
   `time` timestamp,
   `wikiid` int(11) NOT NULL AUTO_INCREMENT primary key,
   `editors` text
-);");
+)");
 				$this->db->query("
 	CREATE TABLE IF NOT EXISTS `wiki_data` (
   `wikiid` int(11) DEFAULT NULL,
@@ -173,7 +173,7 @@ class Wiki_acc extends CI_Model
   `wiki_title` text,
   `wiki_description` text,
   `editorid` int(11) DEFAULT NULL
-);");
+)");
 	}
 	function send_mail($to,$subject,$message){
 		$this->load->helper('email');
