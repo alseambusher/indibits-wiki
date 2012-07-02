@@ -14,9 +14,17 @@ class Wiki extends CI_Controller {
 		}
 	}
 	function create(){
+		if(!$this->wiki_acc->isLoggedIn())
+			redirect(base_url());
+		include("markdown.php");// this is apready there dont change this to include_once or require_once
+		//version and wikiid is got from $_GET['version'] and $_GET['id']
+		//sample url
 		echo "new";
 	}
 	function edit(){
+		if(!$this->wiki_acc->isLoggedIn())
+			redirect(base_url());
+		include("markdown.php");
 		echo "edit";
 	}
 }
