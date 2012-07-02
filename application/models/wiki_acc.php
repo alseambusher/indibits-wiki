@@ -156,13 +156,13 @@ class Wiki_acc extends CI_Model
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
   `account_type` varchar(30) DEFAULT NULL,
-  `signup_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `signup_time` timestamp,
   `notifications` text
 );");
 				$this->db->query("
 	CREATE TABLE IF NOT EXISTS `wikis` (
   `ownerid` int(11) DEFAULT NULL,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `time` timestamp,
   `wikiid` int(11) NOT NULL AUTO_INCREMENT primary key,
   `editors` text
 );");
@@ -174,6 +174,10 @@ class Wiki_acc extends CI_Model
   `wiki_description` text,
   `editorid` int(11) DEFAULT NULL
 );");
+	}
+	function send_mail($to,$subject,$message){
+		$this->load->helper('email');
+		send_email($to,$subject,$message);
 	}
 }	
 ?>

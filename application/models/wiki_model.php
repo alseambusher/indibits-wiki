@@ -43,7 +43,7 @@ class Wiki_model extends CI_Model{
 		$history['editor']="";
 		$this->db->insert('wiki_data',$history);//inserts edited version of the recent history
 	}
-	function wiki_create($permittedtoeditors){
+	function wiki_create($permittedtoeditors=array()){
 		$new=array();
 		$new['editors']=serialize($permittedtoeditors);
 		$this->db->insert('wikis',$new);

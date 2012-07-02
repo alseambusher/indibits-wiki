@@ -26,7 +26,12 @@ if(wiki_acc::isLoggedIn()){
 			$('#editors_tab').fadeOut(0);
 			$('#accounts_tab').fadeOut(0);
 			<?}?>
+			switch_wiki_mode(document.getElementById('view_mode'));
 			$('#wikis_tab').fadeOut(0);
+			<?if(isset($_GET['tab'])){
+				echo "switchActive(".$_GET['tab'].");";
+				}
+			?>
 		}
 		function switchActive(button){
 			document.getElementById('notifications').setAttribute('class',' btn');
@@ -68,7 +73,7 @@ if(wiki_acc::isLoggedIn()){
 				if(status_array[0]=="success")
 					launch_modal('New Editor Account Generated',status_array[1],'<?echo $this->config->base_url().index_page()."/user_home/save_generated_editor";?>','');
 				else
-					launch_modal('New Editor Account was not Generated',status_array[1],'','');
+					launch_modal('New Editor Account was not Generated',status_array[1],'?tab=accounts','');
 			}
 		}
 
@@ -78,6 +83,14 @@ if(wiki_acc::isLoggedIn()){
 		}
 		<?}?>
 		setTimeout('setActive();',0);
+		function switch_wiki_mode(button){
+			document.getElementById("view_mode").disabled=false;
+			document.getElementById("edit_mode").disabled=false;
+			document.getElementById(button.id).disabled=true;
+			$("#view_mode_tab").fadeOut(0);
+			$("#edit_mode_tab").fadeOut(0);
+			$("#"+button.id+"_tab").fadeIn(0);
+		}
 	</script>
 
 	<div id='notifications_tab'>
@@ -143,7 +156,33 @@ if(wiki_acc::isLoggedIn()){
 	
 	
 	<div id='wikis_tab'>
-	This will have all the wikis and one can edit it
+	<? $this->load->model("wiki_acc");?>
+		<br>
+		<button class='btn btn-primary' id="view_mode" onclick="switch_wiki_mode(this);">View Mode</button>
+		<button class='btn btn-primary' id="edit_mode" onclick="switch_wiki_mode(this);">Edit Mode</button>
+		<a class='btn' href='<?echo $this->config->base_url().index_page()."/wiki/create";?>'>New Wiki</a><br>
+		<div class="row-fluid" style="height:70%;overflow-y:scroll;">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+            <div id="view_mode_tab">
+			<?
+				foreach($wiki_recent as $row){
+					echo "<li><a href='".base_url().index_page()."/wiki?id=".$row['wikiid']."&version=0'>".$row['wiki_title'].' <a style="color:gray;">Originally by '.wiki_acc::get_individual_user_data($row['editors'],"fullname").'</a><em style="font-size:10px;color:gray;"> -'.$row['time']."</em></a></li>";
+				}
+			?>
+			</div>
+			<div id="edit_mode_tab">
+			<?
+				foreach($wiki_recent as $row){
+					echo "<li><a href='".base_url().index_page()."/wiki/edit?id=".$row['wikiid']."&version=0'>".$row['wiki_title'].' <a style="color:gray;">Originally by '.wiki_acc::get_individual_user_data($row['editors'],"fullname").'</a><em style="font-size:10px;color:gray;"> -'.$row['time']."</em></a></li>";
+				}
+			?>
+			</div>
+			</ul>
+			<br><br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br><br><br><br>
+		  </div>
+		</div>
 	</div>
 	
 	

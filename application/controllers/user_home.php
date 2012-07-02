@@ -16,6 +16,7 @@ class User_home extends CI_Controller {
 			$data['editors']=$this->wiki_acc->get_user_data('all_editors');
 			$data['owners']=$this->wiki_acc->get_user_data('all_owners');
 			$data['all_users']=$this->wiki_acc->get_user_data('all_users');
+			$data['wiki_recent']=$this->wiki_model->fetch_wiki_list("recent");
 			$this->load->view("user_home_view",$data);
 			//$this->wiki_acc->send_notification("Congrats!!! Your account was created! ",'1');
 			//$this->wiki_acc->send_notification("Congrats!!! You have been promoted to be owner!! ",'1');
@@ -99,7 +100,13 @@ class User_home extends CI_Controller {
 		foreach($this->wiki_acc->get_user_data("all_owners") as $row){
 			$this->wiki_acc->send_notification("Editor ".$_POST['first_name']." ".$_POST['last_name']." has been created.",$row['id']);
 		}
+		//Sending mail not done
+		//$this->wiki_acc->send_mail($_POST['email'],"Congrats your $wikiapp_name account was created!!",$_POST['result']."<br>Login from here:".$this->config->base_url());
 		redirect("user_home");
+	}
+	function save_wiki(){
+		if($this->wiki_acc->isLoggedIn())
+			$this->load->view("default_view");
 	}
 }
 ?>

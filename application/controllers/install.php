@@ -127,6 +127,7 @@ class Install extends CI_Controller {
 			function select_theme(){
 				document.getElementById('theme').value='".$theme."';
 			}
+			document.title='Wiki settings';
 			setTimeout('select_theme()',0);
 		</script>";
 	}

@@ -46,12 +46,12 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="http://www.indibits.com/about/">About Indibits</a></li>
+                <li><a href="http://www.indibits.com/about/" target="_blank">About Indibits</a></li>
                 <li><a href="#">About Indibits-wiki</a></li>
                 <?
 				if($this->session->userdata('account_type')=="owner")
 					echo '<li class="divider"></li>
-                <li><a href="'.$this->config->base_url().index_page().'/install/settings"><i class="icon-wrench"></i> Settings</a></li>';//settings is shown only to owners
+                <li><a href="'.$this->config->base_url().index_page().'/install/settings" target="_blank"><i class="icon-wrench"></i> Settings</a></li>';//settings is shown only to owners
                 ?>
                 <li class="divider"></li>
                 <li><a href="#">Help</a></li>
@@ -77,7 +77,7 @@
           <div class="nav-collapse">
             <ul class="nav ">           
               <li class="active"><a href="#">&copy;Copyright <? echo $copyright;?></a></li>
-              <li><a href="#">Terms and Conditions</a></li>
+              <li><a href="<? echo $this->config->base_url().index_page();?>/welcome/terms" target="_blank">Terms and Conditions</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

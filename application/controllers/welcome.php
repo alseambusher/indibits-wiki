@@ -41,4 +41,11 @@ class Welcome extends CI_Controller {
 		$this->session->sess_destroy();
 		redirect($this->config->base_url());
 	}
+	function terms(){
+		include("config.php");
+		$this->load->view('includeBootstrap');
+		echo "<script type='text/javascript'>document.title='Terms and Conditions';</script>";
+		echo "<h1>Terms and Conditions</h1>";
+		echo "<pre>$terms</pre>";
+	}
 }

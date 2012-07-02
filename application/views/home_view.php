@@ -15,7 +15,7 @@
               <?
               $wikis=unserialize($wiki_list);
               foreach($wikis as $row)
-				echo '<li><a href="#">'.$row["wiki_title"].'<em style="font-size:10px;color:gray;"> -'.$row["time"].'</em></a></li>';
+				echo '<li><a href="'.base_url().index_page().'/wiki?id='.$row["wikiid"].'&version=0">'.$row["wiki_title"].'<em style="font-size:10px;color:gray;"> -'.$row["time"].'</em></a></li>';
               ?>
             </ul>
             <br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -31,7 +31,7 @@
               <?
               $wikis=unserialize($wiki_recent);
               foreach($wikis as $row)
-				echo '<li><a href="#">'.$row["wiki_title"].'<em style="font-size:10px;color:gray;"> -'.$row["time"].'</em></a></li>';
+				echo '<li><a href="'.base_url().index_page().'/wiki?id='.$row["wikiid"].'&version=0">'.$row["wiki_title"].'<em style="font-size:10px;color:gray;"> -'.$row["time"].'</em></a></li>';
               ?>
             </ul>
             <br><br><br><br><br><br><br><br><br><br><br><br><br>
