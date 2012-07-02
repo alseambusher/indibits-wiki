@@ -14,6 +14,7 @@ class Wiki extends CI_Controller {
 		}
 	}
 	function create(){
+		$this->load->model("wiki_acc");
 		if(!$this->wiki_acc->isLoggedIn())
 			redirect(base_url());
 		include("markdown.php");// this is apready there dont change this to include_once or require_once
@@ -22,9 +23,11 @@ class Wiki extends CI_Controller {
 		echo "new";
 	}
 	function edit(){
+		$this->load->model("wiki_acc");
 		if(!$this->wiki_acc->isLoggedIn())
 			redirect(base_url());
 		include("markdown.php");
+		//sample url http://localhost/indibits_wiki/index.php/wiki/edit?id=2&version=1
 		echo "edit";
 	}
 }
