@@ -21,8 +21,8 @@ class Wiki_model extends CI_Model{
 	}
 	function fetch_wiki($wikiid,$versionid=0){
 		if($versionid==0){
-			$query=$this->db->query("select * from  wiki_data where wikiid='".$wikiid."'")->result_array();
-			return $query[sizeof($query)-1];
+			$query=$this->db->query("select * from  wiki_data where wikiid='".$wikiid."' order by versionid desc")->result_array();
+			return $query[0];
 		}
 		else{
 			$query=$this->db->query("select * from  wiki_data where versionid='".$versionid."' and wikiid='".$wikiid."'")->result_array();
@@ -30,22 +30,15 @@ class Wiki_model extends CI_Model{
 		}
 		
 	}
-	function edit_wiki($wikiid,$editdescription=NULL,$wikicontent=NULL,$wikimessage=NULL){
-		$history=fetch_wiki($wikiid);//get latest wiki
-		$history['wikiid']=1+$history['wikiid'];//every edit is stored as a different version
-		if($editdescription!=NULL)
-			$history['wikidescription']=$editdescription;
-		if($wikicontent!=NULL)
-			$history['wikicontent']=$wikicontent;
-		if($wikimessage!=NULL)
-			$history['wikimessage']=$wikimessage;
-		//TODO add the editor from session
-		$history['editor']="";
+	function edit_wiki($wikiid,$wiki_description){
+		$history=$this->fetch_wiki($wikiid,0);//get latest wiki
+		$history['versionid']=1+$history['versionid'];
+		$history['wiki_description']=$wiki_description;//htmlentities($wiki_description,ENT_QUOTES);
+		$history['editorid']=$this->session->userdata('uid');
 		$this->db->insert('wiki_data',$history);//inserts edited version of the recent history
 	}
-	function wiki_create($permittedtoeditors=array()){
-		$new=array();
-		$new['editors']=serialize($permittedtoeditors);
+	function wiki_create(){
+		$new['editors']=$this->session->userdata('uid');
 		$this->db->insert('wikis',$new);
 	}
 	function wiki_delete($wikiid){
