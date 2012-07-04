@@ -32,17 +32,22 @@ class Wiki extends CI_Controller {
 			redirect(base_url());
 		$this->load->view("includeBootstrap");
 		$this->load->view("default_view");
-		$data=$this->wiki_model->fetch_wiki($_GET['id'],$_GET['version']);
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('wiki_description','Name of the wiki application','required|xss_clean|prep_for_form');
+		$this->form_validation->set_rules('wiki_title','Name of the wiki application','required|xss_clean|prep_for_form');
 		if(isset($_POST['submit'])){
 			if($this->form_validation->run()==TRUE){
-				$this->wiki_model->edit_wiki($_GET['id'],$_POST['wiki_description']);
-				redirect("wiki/edit?id=".$_GET['id']."&version=0");
+				$new['wikiid']=$this->wiki_model->wiki_create();
+				$new['versionid']='1';
+				$new['wiki_title']=$_POST['wiki_title'];
+				$new['wiki_description']=$_POST['wiki_description'];
+				$new['editorid']=$this->session->userdata('uid');
+				$this->db->insert('wiki_data',$new);
+				redirect("user_home?tab=wikis");
 			}
 		}
-		$this->load->view("wiki_new",$data);
+		$this->load->view("wiki_new");
 	}
 	function edit(){
 		$this->load->model("wiki_acc");

@@ -16,7 +16,7 @@
 		}
 		xhr.open('POST', '<? echo $this->config->base_url().index_page()."/wiki/preview";?>');
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		xhr.send('wiki_title=<? echo $wiki_title;?>&wiki_description='+document.getElementById("wiki_description").value);
+		xhr.send('wiki_title='+document.getElementById('wiki_title').value+'&wiki_description='+document.getElementById("wiki_description").value);
 	}
 	function back(){
 		$('#preview_field').fadeOut(0);
@@ -30,17 +30,6 @@
 	<div class='btn-group'>
 	<a class='btn btn-primary' href='<? echo base_url().index_page()."/user_home/?tab=wikis";?>'><< Back</a>
 	</div>
-	<div class='btn-group'>
-		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Select Version <span class="caret"></span></a>
-		<ul class="dropdown-menu">
-		<?
-		echo "<li><a href='?id=".$_GET['id']."&version=0'>Latest</a></li>";
-		echo "<li><a href='?id=".$_GET['id']."&version=1'>Original</a></li>";
-		for($i=sizeof($this->db->query("select versionid from wiki_data where wikiid='".$_GET['id']."'")->result_array());$i>0;$i--)
-			echo "<li><a href='?id=".$_GET['id']."&version=$i'>Version $i</a></li>";
-		?>
-		</ul>
-	</div>
 </div>
 <div class='btn-group'>
 	<button class='btn btn-info' onclick="launch_modal('General Symbols','– — ° ″ ′ ≈ ≠ ≤ ≥ ± − × ÷ ← → · §<br>~ | ¡ ¿ † ‡ ↔ ↑ ↓ • ¶   # ½ ⅓ ⅔ ¼ ¾ ⅛ ⅜ ⅝ ⅞ ∞   ‘ ’ “ ” «»   ¤ ₳ ฿ ₵ ¢ ₡ ₢ $ ₫ ₯ € ₠ ₣ ƒ ₴ ₭ ₤ ℳ ₥ ₦ № ₧ ₰ £ ៛ ₨ ₪ ৳ ₮ ₩ ¥   ♠ ♣ ♥ ♦   m² m³   ♭ ♯ ♮   © ® ™');">General symbols</button>
@@ -51,8 +40,10 @@
 	<a class='btn btn-inverse'><i class=' icon-picture'></i> Insert photo</a>
 	<a class='btn btn-warning' href='http://daringfireball.net/projects/markdown/syntax/' target='_blank'>Markdown Help</a>
 </div>
-<? echo form_open('wiki/edit?id='.$_GET["id"].'&version='.$_GET["version"]);?>
-<textarea style="height:70%;width:100%;" name='wiki_description' id='wiki_description'><?echo $wiki_description;?></textarea><br>
+<? echo form_open('wiki/create');?>
+<br>
+<input type="text" class="span8" name="wiki_title" id="wiki_title" style="font-size:12pt;height:30px;"placeholder="Enter title for the wiki">
+<textarea style="height:70%;width:100%;" name='wiki_description' id='wiki_description'></textarea><br>
 <button type='submit' class='btn btn-primary' name='submit'>Save</button>
 <a class='btn btn-danger' onclick="window.location.reload();">Reset</a>
 <a class='btn' onclick="preview();">Preview</a>

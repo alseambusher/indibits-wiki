@@ -40,6 +40,8 @@ class Wiki_model extends CI_Model{
 	function wiki_create(){
 		$new['editors']=$this->session->userdata('uid');
 		$this->db->insert('wikis',$new);
+		$query=$this->db->query("select wikiid from wikis where editors='".$new['editors']."' order by wikiid desc")->result_array();
+		return $query[0]['wikiid'];
 	}
 	function wiki_delete($wikiid){
 		$this->db->query("delete from wikis where wikiid='".$wikiid."'");
