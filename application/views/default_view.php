@@ -55,7 +55,7 @@
                 <li><a href="'.$this->config->base_url().index_page().'/install/settings" target="_blank"><i class="icon-wrench"></i> Settings</a></li>';//settings is shown only to owners
                 ?>
                 <li class="divider"></li>
-                <li><a href="#">Help</a></li>
+                <li><a href="<? echo base_url().index_page()."/install/help";?>" target="_blank">Help</a></li>
               </ul>
             </li>
           </ul>

@@ -84,25 +84,16 @@
 	<div class="container" id="step2">
     <h1>Step 2</h1><br>
 	<table class="table table-striped">
-		<tr>
-			<td>Admin Username</td>
-			<td><input type="text" class="span3" name="admin_username"style="font-size:12pt;height:30px;"placeholder="Enter Username"></td>
-		</tr>
-		<tr>
-			<td>Admin Password</td>
-			<td><input type="password" class="span3" name="admin_password"style="font-size:12pt;height:30px;"placeholder="Enter Password"></td>
-		</tr>
-		<tr>
-			<td>Confirm Password</td>
-			<td><input type="password" class="span3" name="admin_password_confirm"style="font-size:12pt;height:30px;"placeholder="Confirm Password"></td>
-		</tr>
+			<input type="hidden" name="admin_username" value='1'>
+			<input type="hidden" name="admin_password" value='1'>
+			<input type="hidden" name="admin_password_confirm" value='1'>
 		<tr>
 		<td>Copyright of the wiki application</td>
-		<td><textarea rows="5" name="copyright"style="width:50%;"></textarea></td>
+		<td><textarea rows="5" name="copyright"style="width:100%;"></textarea></td>
 		</tr>
 		<tr>
 		<td>Terms and conditions for using this application</td>
-		<td><textarea rows="5" name="terms"style="width:50%;"></textarea></td>
+		<td><textarea rows="5" name="terms"style="width:100%;"></textarea></td>
 		</tr>
 	</table>
 	<button type="button"class="btn btn-primary btn-large" value="next" onclick="$('#step2').fadeOut(500,function(){$('#step1').fadeIn(500);});"><< Back</button>

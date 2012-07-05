@@ -44,6 +44,9 @@ class Wiki extends CI_Controller {
 				$new['wiki_description']=$_POST['wiki_description'];
 				$new['editorid']=$this->session->userdata('uid');
 				$this->db->insert('wiki_data',$new);
+				foreach($this->wiki_acc->get_user_data('all_users') as $row){
+					$this->wiki_acc->send_notification($new['wiki_title']." wiki was created",$row['id']);
+				}
 				redirect("user_home?tab=wikis");
 			}
 		}

@@ -48,7 +48,6 @@
 	<button class='btn btn-info'onclick="launch_modal('Greek','Ά ά Έ έ Ή ή Ί ί Ό ό Ύ ύ Ώ ώ   Α α Β β Γ γ Δ δ   Ε ε Ζ ζ Η η Θ θ   Ι ι Κ κ Λ λ Μ μ   Ν ν Ξ ξ Ο ο Π π   Ρ ρ Σ σ ς Τ τ Υ υ   Φ φ Χ χ Ψ ψ Ω ω');">Greek</button>
 	<button class='btn 'onclick="launch_modal('Cyrillic','А а Б б В в Г г   Ґ ґ Ѓ ѓ Д д Ђ ђ   Е е Ё ё Є є Ж ж   З з Ѕ ѕ И и І і   Ї ї Й й Ј ј К к   Ќ ќ Л л Љ љ М м   Н н Њ њ О о П п   Р р С с Т т Ћ ћ   У у Ў ў Ф ф Х х   Ц ц Ч ч Џ џ Ш ш   Щ щ Ъ ъ Ы ы Ь ь   Э э Ю ю Я я');">Cyrillic</button>
 	<button class='btn btn-info'onclick="launch_modal('IPA','̪ d̪ ʈ ɖ ɟ ɡ ɢ ʡ ʔ   ɸ ʃ ʒ ɕ ʑ ʂ ʐ ʝ ɣ ʁ ʕ ʜ ʢ ɦ   ɱ ɳ ɲ ŋ ɴ   ʋ ɹ ɻ ɰ   ʙ ʀ ɾ ɽ   ɫ ɬ ɮ ɺ ɭ ʎ ʟ   ɥ ʍ ɧ   ɓ ɗ ʄ ɠ ʛ   ʘ ǀ ǃ ǂ ǁ   ɨ ʉ ɯ   ɪ ʏ ʊ   ɘ ɵ ɤ   ə ɚ   ɛ ɜ ɝ ɞ ʌ ɔ   ɐ ɶ ɑ ɒ   ʰ ʷ ʲ ˠ ˤ ⁿ ˡ   ˈ ˌ ː ˑ ̪ ');">IPA</button>&nbsp;&nbsp;
-	<a class='btn btn-inverse'><i class=' icon-picture'></i> Insert photo</a>
 	<a class='btn btn-warning' href='http://daringfireball.net/projects/markdown/syntax/' target='_blank'>Markdown Help</a>
 </div>
 <? echo form_open('wiki/edit?id='.$_GET["id"].'&version='.$_GET["version"]);?>

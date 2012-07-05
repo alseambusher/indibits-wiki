@@ -48,15 +48,19 @@ class Install extends CI_Controller {
 					$_POST['copyright'],
 					$_POST['terms']
 				);
-				$this->load->model("wiki_acc");
-				$this->wiki_acc->make_tables();
-				$data =array("first_name"=>$_POST['first_name'],"last_name"=>$_POST['last_name'],"email"=>$_POST['email'],"timezone"=>$_POST['timezone'],"username"=>$_POST['username'],"password"=>md5($_POST['password']));
-				$this->wiki_acc->new_account($data);
-				$this->wiki_acc->send_notification("Congrats!!! Your account was created!",$this->wiki_acc->get_id($_POST['username']));
-				redirect('install/success');
+				$data =array("first_name"=>$_POST['first_name'],"last_name"=>$_POST['last_name'],"email"=>$_POST['email'],"timezone"=>$_POST['timezone'],"username"=>$_POST['username'],"password"=>md5($_POST['password']),"account_type"=>"owner");
+				redirect('install/complete_install?data='.serialize($data));
 			}
 		}
 		$this->load->view('installView');
+	}
+	function complete_install(){
+		$this->load->model("wiki_acc");
+		$this->wiki_acc->make_tables();
+		$data=unserialize($_GET['data']);
+		$this->wiki_acc->new_account($data,'owner');
+		$this->wiki_acc->send_notification("Congrats!!! Your account was created!",$this->wiki_acc->get_id($data['username']));
+		redirect('install/success');
 	}
 	function success(){
 		$this->load->view('includeBootstrap');
@@ -135,5 +139,10 @@ class Install extends CI_Controller {
 		echo "<p>You should see this:</p>";
 		echo "<blockquote style='border:1px black solid;'>Array ( [0] => Array ( [Tables_in_indibits_wiki] => users ) [1] => Array ( [Tables_in_indibits_wiki] => wiki_data ) [2] => Array ( [Tables_in_indibits_wiki] => wikis ) ) </blockquote>";
 		print_r($this->db->query("show tables")->result_array());
+	}
+	function help(){
+		$this->load->view('includeBootstrap');
+		$this->load->view("default_view");
+		$this->load->view("help");
 	}
 }

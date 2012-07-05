@@ -5,5 +5,7 @@ This wiki application comes with 12 different themes. Users may use any theme de
 How to use
 ==========
 1. Copy and paste the code to your host
-2. install it: hostname/indibits_wiki
-3. done!! This is home url: hostname/indibits_wiki
+2. Open application/config/config.php. And set the base url. Example:
+> $config['base_url']	= 'http://localhost/';
+3. install it: hostname/indibits_wiki
+4. done!! This is home url: hostname/indibits_wiki
