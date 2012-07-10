@@ -52,8 +52,9 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database','session','Wikiconfig');
-
+//$autoload['libraries'] = array('database','session','Wikiconfig');
+include("config.php");
+$autoload['libraries'] =$auto;
 
 /*
 | -------------------------------------------------------------------

@@ -88,6 +88,7 @@ class Install extends CI_Controller {
 					$db_name="'.$db_name.'";
 					$admin_username="'.$admin_username.'";
 					$admin_password="'.md5($admin_password).'";
+					$auto=array("session","database");
 					$copyright="'.$copyright.'";
 					$terms="'.$terms.'";
 					$default_controller="welcome";

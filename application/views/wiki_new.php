@@ -1,7 +1,20 @@
 <script type="text/javascript">
 	function launch_modal(header,body){
 			document.getElementById("modal_header").innerHTML=header;
-			document.getElementById("modal_body").innerHTML="<h4>Copy and paste from here</h4>"+body;
+			while (document.getElementById("modal_body").hasChildNodes()) {
+				document.getElementById("modal_body").removeChild(document.getElementById("modal_body").lastChild);
+			}
+			document.getElementById("modal_body").innerHTML="<h4>Click to add to the textbox</h4>";
+			var elements=body.split(" ");
+			for(var i=0;i<elements.length;i++){
+				var temp=document.createElement("a");
+				temp.setAttribute("style","cursor:pointer;padding:2px;");
+				temp.innerHTML=elements[i];
+				temp.onclick=function(){
+					document.getElementById("wiki_description").value=document.getElementById("wiki_description").value+this.innerHTML;
+				}
+				document.getElementById("modal_body").appendChild(temp);
+			}
 			$('#myModal').modal('show');
 		}
 	function preview(){
@@ -16,7 +29,7 @@
 		}
 		xhr.open('POST', '<? echo $this->config->base_url().index_page()."/wiki/preview";?>');
 		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		xhr.send('wiki_title='+document.getElementById('wiki_title').value+'&wiki_description='+document.getElementById("wiki_description").value);
+		xhr.send('wiki_title='+document.getElementById('wiki_title').value+'&wiki_description='+encodeURIComponent(document.getElementById("wiki_description").value));
 	}
 	function back(){
 		$('#preview_field').fadeOut(0);
@@ -33,10 +46,11 @@
 </div>
 <div class='btn-group'>
 	<button class='btn btn-info' onclick="launch_modal('General Symbols','– — ° ″ ′ ≈ ≠ ≤ ≥ ± − × ÷ ← → · §<br>~ | ¡ ¿ † ‡ ↔ ↑ ↓ • ¶   # ½ ⅓ ⅔ ¼ ¾ ⅛ ⅜ ⅝ ⅞ ∞   ‘ ’ “ ” «»   ¤ ₳ ฿ ₵ ¢ ₡ ₢ $ ₫ ₯ € ₠ ₣ ƒ ₴ ₭ ₤ ℳ ₥ ₦ № ₧ ₰ £ ៛ ₨ ₪ ৳ ₮ ₩ ¥   ♠ ♣ ♥ ♦   m² m³   ♭ ♯ ♮   © ® ™');">General symbols</button>
-	<button class='btn'onclick="launch_modal('Latin','A a Á á À à Â â Ä ä Ǎ ǎ Ă ă Ā ā Ã ã Å å Ą ą Æ æ Ǣ ǣ   B b   C c Ć ć Ċ ċ Ĉ ĉ Č č Ç ç   D d Ď ď Đ đ Ḍ ḍ Ð ð   E e É é È è Ė ė Ê ê Ë ë Ě ě Ĕ ĕ Ē ē Ẽ ẽ Ę ę Ə ə   F f   G g Ġ ġ Ĝ ĝ Ğ ğ Ģ ģ   H h Ĥ ĥ Ħ ħ Ḥ ḥ   I i İ ı Í í Ì ì Î î Ï ï Ǐ ǐ Ĭ ĭ Ī ī Ĩ ĩ Į į   J j Ĵ ĵ   K k Ķ ķ   L l Ĺ ĺ Ŀ ŀ Ľ ľ Ļ ļ Ł ł Ḷ ḷ Ḹ ḹ   M m Ṃ ṃ   N n Ń ń Ň ň Ñ ñ Ņ ņ Ṇ ṇ   O o Ó ó Ò ò Ô ô Ö ö Ǒ ǒ Ŏ ŏ Ō ō Õ õ Ǫ ǫ Ő ő Ø ø Œ œ   P p   Q q   R r Ŕ ŕ Ř ř Ŗ ŗ Ṛ ṛ Ṝ ṝ   S s Ś ś Ŝ ŝ Š š Ş ş Ș ș Ṣ ṣ ß   T t Ť ť Ţ ţ Ț ț Ṭ ṭ Þ þ   U u Ú ú Ù ù Û û Ü ü Ǔ ǔ Ŭ ŭ Ū ū Ũ ũ Ů ů Ų ų Ű ű Ǘ ǘ Ǜ ǜ Ǚ ǚ Ǖ ǖ   V v   W w Ŵ ŵ   X x   Y y Ý ý Ŷ ŷ Ÿ ÿ Ỹ ỹ Ȳ ȳ   Z z Ź ź Ż ż Ž ž   ß Ð ð Þ þ Ə ə');">Latin</button>
-	<button class='btn btn-info'onclick="launch_modal('Greek','Ά ά Έ έ Ή ή Ί ί Ό ό Ύ ύ Ώ ώ   Α α Β β Γ γ Δ δ   Ε ε Ζ ζ Η η Θ θ   Ι ι Κ κ Λ λ Μ μ   Ν ν Ξ ξ Ο ο Π π   Ρ ρ Σ σ ς Τ τ Υ υ   Φ φ Χ χ Ψ ψ Ω ω');">Greek</button>
-	<button class='btn 'onclick="launch_modal('Cyrillic','А а Б б В в Г г   Ґ ґ Ѓ ѓ Д д Ђ ђ   Е е Ё ё Є є Ж ж   З з Ѕ ѕ И и І і   Ї ї Й й Ј ј К к   Ќ ќ Л л Љ љ М м   Н н Њ њ О о П п   Р р С с Т т Ћ ћ   У у Ў ў Ф ф Х х   Ц ц Ч ч Џ џ Ш ш   Щ щ Ъ ъ Ы ы Ь ь   Э э Ю ю Я я');">Cyrillic</button>
-	<button class='btn btn-info'onclick="launch_modal('IPA','̪ d̪ ʈ ɖ ɟ ɡ ɢ ʡ ʔ   ɸ ʃ ʒ ɕ ʑ ʂ ʐ ʝ ɣ ʁ ʕ ʜ ʢ ɦ   ɱ ɳ ɲ ŋ ɴ   ʋ ɹ ɻ ɰ   ʙ ʀ ɾ ɽ   ɫ ɬ ɮ ɺ ɭ ʎ ʟ   ɥ ʍ ɧ   ɓ ɗ ʄ ɠ ʛ   ʘ ǀ ǃ ǂ ǁ   ɨ ʉ ɯ   ɪ ʏ ʊ   ɘ ɵ ɤ   ə ɚ   ɛ ɜ ɝ ɞ ʌ ɔ   ɐ ɶ ɑ ɒ   ʰ ʷ ʲ ˠ ˤ ⁿ ˡ   ˈ ˌ ː ˑ ̪ ');">IPA</button>&nbsp;&nbsp;
+	<button class='btn' onclick="launch_modal('Math','&#8722; &#43; &plusmn; &times; &divide; &#37; &#137; &#61; &#8800; &#8776; &#8801; &#60; &#62; &#8804; &#8805; &#8734; &#8539; &frac14; &#8540; &frac12; &#8541; &frac34; &#8542; &#8747; &#8706; &#8710; &#8719; &#8721; &#8730; &#8735; &#8745; &#8729; &#131; &#8260;');">Math</button>
+	<button class='btn btn-info'onclick="launch_modal('Latin','A a Á á À à Â â Ä ä Ǎ ǎ Ă ă Ā ā Ã ã Å å Ą ą Æ æ Ǣ ǣ   B b   C c Ć ć Ċ ċ Ĉ ĉ Č č Ç ç   D d Ď ď Đ đ Ḍ ḍ Ð ð   E e É é È è Ė ė Ê ê Ë ë Ě ě Ĕ ĕ Ē ē Ẽ ẽ Ę ę Ə ə   F f   G g Ġ ġ Ĝ ĝ Ğ ğ Ģ ģ   H h Ĥ ĥ Ħ ħ Ḥ ḥ   I i İ ı Í í Ì ì Î î Ï ï Ǐ ǐ Ĭ ĭ Ī ī Ĩ ĩ Į į   J j Ĵ ĵ   K k Ķ ķ   L l Ĺ ĺ Ŀ ŀ Ľ ľ Ļ ļ Ł ł Ḷ ḷ Ḹ ḹ   M m Ṃ ṃ   N n Ń ń Ň ň Ñ ñ Ņ ņ Ṇ ṇ   O o Ó ó Ò ò Ô ô Ö ö Ǒ ǒ Ŏ ŏ Ō ō Õ õ Ǫ ǫ Ő ő Ø ø Œ œ   P p   Q q   R r Ŕ ŕ Ř ř Ŗ ŗ Ṛ ṛ Ṝ ṝ   S s Ś ś Ŝ ŝ Š š Ş ş Ș ș Ṣ ṣ ß   T t Ť ť Ţ ţ Ț ț Ṭ ṭ Þ þ   U u Ú ú Ù ù Û û Ü ü Ǔ ǔ Ŭ ŭ Ū ū Ũ ũ Ů ů Ų ų Ű ű Ǘ ǘ Ǜ ǜ Ǚ ǚ Ǖ ǖ   V v   W w Ŵ ŵ   X x   Y y Ý ý Ŷ ŷ Ÿ ÿ Ỹ ỹ Ȳ ȳ   Z z Ź ź Ż ż Ž ž   ß Ð ð Þ þ Ə ə');">Latin</button>
+	<button class='btn 'onclick="launch_modal('Greek','Ά ά Έ έ Ή ή Ί ί Ό ό Ύ ύ Ώ ώ   Α α Β β Γ γ Δ δ   Ε ε Ζ ζ Η η Θ θ   Ι ι Κ κ Λ λ Μ μ   Ν ν Ξ ξ Ο ο Π π   Ρ ρ Σ σ ς Τ τ Υ υ   Φ φ Χ χ Ψ ψ Ω ω');">Greek</button>
+	<button class='btn btn-info'onclick="launch_modal('Cyrillic','А а Б б В в Г г   Ґ ґ Ѓ ѓ Д д Ђ ђ   Е е Ё ё Є є Ж ж   З з Ѕ ѕ И и І і   Ї ї Й й Ј ј К к   Ќ ќ Л л Љ љ М м   Н н Њ њ О о П п   Р р С с Т т Ћ ћ   У у Ў ў Ф ф Х х   Ц ц Ч ч Џ џ Ш ш   Щ щ Ъ ъ Ы ы Ь ь   Э э Ю ю Я я');">Cyrillic</button>
+	<button class='btn 'onclick="launch_modal('IPA','̪ d̪ ʈ ɖ ɟ ɡ ɢ ʡ ʔ   ɸ ʃ ʒ ɕ ʑ ʂ ʐ ʝ ɣ ʁ ʕ ʜ ʢ ɦ   ɱ ɳ ɲ ŋ ɴ   ʋ ɹ ɻ ɰ   ʙ ʀ ɾ ɽ   ɫ ɬ ɮ ɺ ɭ ʎ ʟ   ɥ ʍ ɧ   ɓ ɗ ʄ ɠ ʛ   ʘ ǀ ǃ ǂ ǁ   ɨ ʉ ɯ   ɪ ʏ ʊ   ɘ ɵ ɤ   ə ɚ   ɛ ɜ ɝ ɞ ʌ ɔ   ɐ ɶ ɑ ɒ   ʰ ʷ ʲ ˠ ˤ ⁿ ˡ   ˈ ˌ ː ˑ ̪ ');">IPA</button>&nbsp;&nbsp;
 	<a class='btn btn-warning' href='http://daringfireball.net/projects/markdown/syntax/' target='_blank'>Markdown Help</a>
 </div>
 <? echo form_open('wiki/create');?>
