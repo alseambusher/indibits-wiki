@@ -10,7 +10,7 @@ class Wiki extends CI_Controller {
 		include("markdown.php");
 		if(isset($_GET['id'])&&isset($_GET['version'])){
 			$wiki_data=$this->wiki_model->fetch_wiki($_GET['id'],$_GET['version']);
-			$wiki_data['wiki_description']=Markdown(trim($wiki_data['wiki_description']));
+			$wiki_data['wiki_description']=htmlspecialchars_decode(Markdown($wiki_data['wiki_description']));
 			$this->load->view('wiki_view',$wiki_data);
 		}
 	}
@@ -41,7 +41,7 @@ class Wiki extends CI_Controller {
 				$new['wikiid']=$this->wiki_model->wiki_create();
 				$new['versionid']='1';
 				$new['wiki_title']=$_POST['wiki_title'];
-				$new['wiki_description']=htmlentities($_POST['wiki_description'], ENT_COMPAT, "UTF-8");
+				$new['wiki_description']=$_POST['wiki_description'];
 				$new['editorid']=$this->session->userdata('uid');
 				$this->db->insert('wiki_data',$new);
 				foreach($this->wiki_acc->get_user_data('all_users') as $row){
@@ -65,7 +65,8 @@ class Wiki extends CI_Controller {
 		$this->form_validation->set_rules('wiki_description','Name of the wiki application','required|xss_clean|prep_for_form');
 		if(isset($_POST['submit'])){
 			if($this->form_validation->run()==TRUE){
-				$this->wiki_model->edit_wiki($_GET['id'],htmlentities($_POST['wiki_description'], ENT_COMPAT, "UTF-8"));
+				$this->wiki_model->edit_wiki($_GET['id'],$_POST['wiki_description']);
+				//$this->wiki_model->edit_wiki($_GET['id'],htmlentities($_POST['wiki_description'], ENT_COMPAT, "UTF-8"));
 				redirect("wiki/edit?id=".$_GET['id']."&version=0");
 			}
 		}

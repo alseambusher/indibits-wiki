@@ -1,0 +1,108 @@
+#!/bin/bash
+export PS1='\w:::# '
+#these are my aliases
+alias clear='clear;bash ~/.alserc 0'
+alias axel='axel -a --verbose -n'
+alias logisim='java -jar Ambusher/software/LINUX\ software/logisim-generic-2.7.1.jar'
+alias opengl='gcc -lglut -lGLU'
+alias eclipse='/home/alse/eclipse/eclipse'
+alias cv='g++ -I/usr/include/opencv -lcxcore -lhighgui -lm '
+alias glutrix='~/.glutrix/glutrix 1366 768'
+alias adb='/home/alse/android-sdk-linux/platform-tools/adb'
+alias firefox='/home/alse/firefox/firefox'
+alias lynx='lynx --accept_all_cookies'
+#start message starts here
+function print_element {
+	while [ $cols -ge 1 ]	
+	do
+		printf "$element"
+		cols=`expr $cols - 1`
+	done
+}
+function print_sentence {
+	cols=`tput cols`
+	size=`expr "$sentence" : '.*'`
+	cols=`echo "($cols-$size)/2"|bc`
+	cols=`expr $cols - 1`
+	element=' '
+	print_element
+	echo $sentence
+}
+cols=`tput cols`
+element='~'
+print_element
+
+#PRINTING STAR WARS
+if [ `tput cols` -le 80 ]
+then
+if [ $# -ne 1 ]
+then
+cols=`tput cols`
+cols=`echo $cols/2-17|bc`
+element=' '
+print_element
+echo "    8888888888  888    88888       "
+cols=`tput cols`
+cols=`echo $cols/2-17|bc`
+element=' '
+print_element
+echo "   88     88   88 88   88  88      "
+cols=`tput cols`
+cols=`echo $cols/2-17|bc`
+element=' '
+print_element
+echo "    8888  88  88   88  88888       "               
+cols=`tput cols`
+cols=`echo $cols/2-17|bc`
+element=' '
+print_element
+echo "       88 88 888888888 88   88     "               
+cols=`tput cols`
+cols=`echo $cols/2-17|bc`
+element=' '
+print_element
+echo "88888888  88 88     88 88    888888"               
+echo ""                                                  
+cols=`tput cols`
+cols=`echo $cols/2-17|bc`
+element=' '
+print_element
+echo "88  88  88   888    88888    888888"
+cols=`tput cols`
+cols=`echo $cols/2-17|bc`
+element=' '
+print_element
+echo "88  88  88  88 88   88  88  88     "               
+cols=`tput cols`
+cols=`echo $cols/2-17|bc`
+element=' '
+print_element
+echo "88 8888 88 88   88  88888    8888  "                
+cols=`tput cols`
+cols=`echo $cols/2-17|bc`
+element=' '
+print_element
+echo " 888  888 888888888 88   88     88 "                
+cols=`tput cols`
+cols=`echo $cols/2-17|bc`
+element=' '
+print_element
+echo "  88  88  88     88 88    8888888  "
+echo ""
+fi
+#PRINTING STAR WARS DONE
+fi
+
+sentence=`date`
+print_sentence
+sentence='Welcome Alseambusher'
+print_sentence
+sentence='Let your conquest begin here'
+print_sentence
+cols=`tput cols`
+element='~'
+print_element
+#start message ends hee
+#for adb
+export PATH=$PATH:/home/alse/android-sdk-linux/platform-tools/
+#adb ends here
