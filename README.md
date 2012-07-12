@@ -10,4 +10,4 @@ How to use
 3. install it: hostname/indibits_wiki
 4. done!! This is home url: hostname/indibits_wiki  
   
-More Help: ![help](http://geekblog.phpfogapp.com/index.php/wiki?id=6&version=0)
+More Help: <http://geekblog.phpfogapp.com/index.php/wiki?id=6&version=0>
