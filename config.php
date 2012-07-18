@@ -9,8 +9,8 @@ Cricket was first played in southern England in the 16th century. By the end of 
 					$db_name="indibits_wiki";
 					$admin_username="alse";
 					$admin_password="e94f542bb18a46b8dac6dc2c1c300b5e";
-					$auto=array("session","database");
+					$auto=array("session");
 					$copyright="none";
 					$terms="We are not responsible for anything done using this wiki application";
-					$default_controller="welcome";
-					$theme="simplex";?>
+					$default_controller="install";
+					$theme="bootstrap";?>

@@ -100,8 +100,15 @@ class User_home extends CI_Controller {
 		foreach($this->wiki_acc->get_user_data("all_owners") as $row){
 			$this->wiki_acc->send_notification("Editor ".$_POST['first_name']." ".$_POST['last_name']." has been created.",$row['id']);
 		}
-		//Sending mail not done
-		//$this->wiki_acc->send_mail($_POST['email'],"Congrats your $wikiapp_name account was created!!",$_POST['result']."<br>Login from here:".$this->config->base_url());
+		include("config.php");
+		$this->wiki_acc->send_mail($_POST['email'],"Congrats your $wikiapp_name account was created!!",
+		"Your account details:
+		First Name: ".$_POST['first_name']."
+		Last Name: ".$_POST['last_name']."
+		Username: ".$_POST['username']."
+		Password: $password
+		Account Type: editor
+		Login from here:".$this->config->base_url());
 		redirect("user_home");
 	}
 	function save_wiki(){
