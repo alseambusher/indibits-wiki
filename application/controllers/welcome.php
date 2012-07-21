@@ -48,4 +48,45 @@ class Welcome extends CI_Controller {
 		echo "<h1>Terms and Conditions</h1>";
 		echo "<pre>$terms</pre>";
 	}
+	function search_wikis(){
+		if($_POST['type']=="simple"){
+			$results=$this->db->query("select wiki_title from wiki_data where wiki_title like '%".$_POST['sentence']."%' group by wiki_title")->result_array();
+			foreach($results as $row){
+				echo $row['wiki_title'].",";
+			}
+		}
+		else if($_POST['type']="full"){
+			$results=$this->db->query("select wiki_title,wikiid from wiki_data where wiki_title like '%".$_POST['sentence']."%' group by wiki_title")->result_array();
+			$hits=array();//this has all the hits
+			$wikiid=array();// this will have all the wikiids
+			foreach($results as $row){
+				$hits[$row['wiki_title']]=10;
+				$wikiid[$row['wiki_title']]=$row['wikiid'];
+			}
+			$words=explode(" ",$_POST['sentence']);
+			foreach($words as $word){
+				$advanced_search=$this->db->query("select wiki_title,wiki_description,wikiid from wiki_data where wiki_description like '%".$word."%' group by wiki_title")->result_array();
+				foreach($advanced_search as $row){
+					if(!isset($hits[$row['wiki_title']])){
+						$hits[$row['wiki_title']]=1;
+						$wikiid[$row['wiki_title']]=$row['wikiid'];
+					}
+					else{
+						$hits[$row['wiki_title']]+=1;
+					}
+				}
+			}
+			arsort($hits);
+			$i=0;
+			$wiki_titles=array_keys($hits);
+			$result_array="";$url_array="";
+			foreach($hits as $hit){
+				$result_array.=$wiki_titles[$i].",";
+				$url_array.=base_url().index_page()."/wiki?id=".$wikiid[$wiki_titles[$i]]."&version=0,";
+				$i+=1;
+			}
+			echo $result_array."~".$url_array;
+			//echo "1,2,3,4,5,6,7:q,w,e,r,t,y,u,";
+		}
+	}
 }

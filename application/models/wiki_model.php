@@ -1,4 +1,5 @@
 <?php
+//NOTE search_wikis is in welcome.php
 /*
  * methods in this model:
  * fetch_wiki_list

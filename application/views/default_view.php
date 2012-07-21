@@ -14,6 +14,56 @@
         padding-bottom: 40px;
       }
     </style>
+<script type="text/javascript">
+//if type is 'simple' it will return only titles. if it is 'full' it will return everything
+function remote_fetch(sentence,type){
+	var xhr=false;
+	xhr=new XMLHttpRequest()
+	xhr.onreadystatechange = function() {
+		if(type=='full'){
+			$('#search_results').modal('show');
+			document.getElementById("search_results_body").innerHTML="Searching....";
+		}
+		if (xhr.readyState == 4) {
+			if(type=='simple'){
+				var autocomplete = $('#search_wikis').typeahead();
+				autocomplete.data("typeahead").source=xhr.responseText.split(",");
+			}
+			if(type=='full'){
+				var result_array=xhr.responseText.split('~')[0].split(',');
+				var url_array=xhr.responseText.split('~')[1].split(',');
+				search_results_modal(result_array,url_array);
+				if(xhr.responseText.length==1)
+					document.getElementById("search_results_body").innerHTML="No Results Found";
+			}
+			return xhr.responseText.split(",");
+		}
+	}
+
+	xhr.open('POST', '<? echo $this->config->base_url().index_page()."/welcome/search_wikis";?>');
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xhr.send('sentence='+sentence+'&type='+type);
+}
+function search_wikis(event){
+	var autocomplete = $('#search_wikis').typeahead();
+	if(event.keyCode==13){
+		remote_fetch(document.getElementById("search_wikis").value,'full');
+	}
+	remote_fetch(document.getElementById("search_wikis").value,'simple')
+}
+function search_results_modal(result_array,url_array){
+			document.getElementById("search_results_body").innerHTML="";
+			$('#search_results').modal('show');
+			for(var i=0;i<result_array.length;i++){
+				var list=document.createElement("li");
+				var temp=document.createElement("a");
+				temp.innerHTML=result_array[i];
+				temp.href=url_array[i];
+				list.appendChild(temp)
+				document.getElementById("search_results_body").appendChild(list);
+			}
+		}
+</script>
 </head>
 <body>
 	<!-- navigation bar begins -->
@@ -26,6 +76,8 @@
             <span class="icon-bar"></span>
           </a>
           <a class="brand" href="<?echo $this->config->base_url();?>"><? echo $wikiapp_name;?></a>
+          <input type="text" id="search_wikis" onkeyup="search_wikis(event);"class="search-query" placeholder="Search wikis " style="font-size:11pt;height:25px;margin-top:5px;" data-provide="typeahead"
+			data-items="8" data-source='[]'>
           <ul class="nav pull-right">
           <? 
 			$this->load->model("wiki_acc");
@@ -87,6 +139,23 @@
     <!-- Lower status bar ends -->
     <div class="container">
 <!-- container class not closed!!! -->
-    
-    
+
+
+<div class="modal hide fade" id="search_results">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Search Results</h3>
+  </div>
+  <div class="modal-body">
+    <div class="row-fluid">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list" id="search_results_body">
+            </ul>
+           </div>
+     </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal" id="modal_close">Close</a>
+  </div>
+</div>
     

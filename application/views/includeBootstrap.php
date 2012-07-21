@@ -11,5 +11,6 @@ echo "<script type='text/javascript' src='".$bootstrap."js/jquery.js'></script>"
 echo "<script type='text/javascript' src='".$bootstrap."js/bootstrap.js'></script>";
 echo "<script type='text/javascript' src='".$bootstrap."js/bootstrap-popover.js'></script>";
 echo "<script type='text/javascript' src='".$bootstrap."js/bootstrap-modal.js'></script>";
+echo "<script type='text/javascript' src='".$bootstrap."js/bootstrap-typehead.js'></script>";
 ?>
 <link rel="shortcut icon" href="" />
