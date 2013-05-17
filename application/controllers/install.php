@@ -7,7 +7,7 @@ class Install extends CI_Controller {
 		if($default_controller=="welcome")
 			redirect('install/success');
 		$this->load->view('includeBootstrap');
-		
+
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('wikiapp_name','Name of the wiki application','required|xss_clean');
@@ -77,7 +77,7 @@ class Install extends CI_Controller {
 				</div>
 			</div>';
 	}
-	function updateConfig($wikiapp_name,$wikiapp_description,$db_host,$db_username,$db_password,$db_name,$admin_username,$admin_password,$copyright="",$terms="",$theme="bootstrap"){
+    function updateConfig($wikiapp_name,$wikiapp_description,$db_host,$db_username,$db_password,$db_name,$admin_username,$admin_password,$copyright="",$terms="",$theme="bootstrap"){
 		//creates or updates config file
 		$newconfig='<?php  if ( ! defined("BASEPATH")) exit("No direct script access allowed");
 					$wikiapp_name="'.$wikiapp_name.'";
@@ -92,10 +92,10 @@ class Install extends CI_Controller {
 					$copyright="'.$copyright.'";
 					$terms="'.$terms.'";
 					$default_controller="welcome";
-					$theme="'.$theme.'";?>';	
+                    $theme="'.$theme.'";?>';
 		$fp = fopen('config.php', 'w');
 		fwrite($fp, $newconfig);
-		fclose($fp);	
+        fclose($fp);
 	}
 	function settings(){
 		include('config.php');
